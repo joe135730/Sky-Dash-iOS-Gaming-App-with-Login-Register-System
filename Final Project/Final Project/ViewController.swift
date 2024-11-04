@@ -9,6 +9,8 @@ import UIKit
 
 class ViewController: UIViewController {
     let loginView = LoginView()
+    let userProfileView = UserProfileView()
+    let editProfileView = EditProfileView()
 
     override func loadView() {
         view = loginView
@@ -18,19 +20,29 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         // type something
-        title = "Login"
+        // Handle navigation to UserProfileView
+        loginView.userProfileButton.addTarget(self, action: #selector(showUserProfile), for: .touchUpInside)
         
-        loginView.loginButton.addTarget(self, action: #selector(onAddBarButtonTapped), for: .touchUpInside)
-
+        // Handle navigation to EditProfileView
+        userProfileView.editProfileButton.addTarget(self, action: #selector(showEditProfile), for: .touchUpInside)
+        
+        // Handle confirm button action in EditProfileView (e.g., go back to UserProfileView)
+        editProfileView.confirmButton.addTarget(self, action: #selector(confirmEdit), for: .touchUpInside)
     }
 
-    @objc func onAddBarButtonTapped(){
-        //MARK: Put your own controller here to navigate to test
-//        let addContactController = AddContactController()
-//        addContactController.delegate = self
-//        navigationController?.pushViewController(addContactController, animated: true)
-        
-        
+    @objc func showUserProfile() {
+        view = userProfileView
+        title = "User Profile"
+    }
+    
+    @objc func showEditProfile() {
+        view = editProfileView
+        title = "Edit Profile"
+    }
+    
+    @objc func confirmEdit() {
+        view = userProfileView
+        title = "User Profile"
     }
 
 }
