@@ -26,9 +26,8 @@ class ViewController: UIViewController {
 
     @objc func onAddBarButtonTapped(){
         //MARK: Put your own controller here to navigate to test
-//        let addContactController = AddContactController()
-//        addContactController.delegate = self
-//        navigationController?.pushViewController(addContactController, animated: true)
+        let mainScreenController = MainScreenController()
+        navigationController?.pushViewController(mainScreenController, animated: true)
         
         // test
         // test
