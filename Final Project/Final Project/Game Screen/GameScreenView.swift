@@ -248,5 +248,13 @@ class GameScreenView: UIView {
     // Add this method to reset game state
     func resetGame() {
         isGameOver = false
+        updateScore(0)  // Reset score display to 0
+        
+        // Clear any remaining obstacles and bullets
+        obstacles.forEach { $0.removeFromSuperview() }
+        obstacles.removeAll()
+        bullets.forEach { $0.removeFromSuperview() }
+        bullets.removeAll()
+        monsterHealth.removeAll()
     }
 }
