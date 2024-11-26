@@ -47,16 +47,16 @@ class HomePageViewController: UIViewController {
         }
     }
     
+    @objc func friendsButtonTapped() {
+        let mainScreenController = MainScreenController()
+        navigationController?.pushViewController(mainScreenController, animated: true)
+    }
+    
     @objc func startButtonTapped() {
         // Add your game start logic here
         print("Start button tapped")
     }
-    
-    @objc func friendsButtonTapped() {
-        // Navigate to friends screen
-        print("Friends button tapped")
-    }
-    
+        
     @objc func profileButtonTapped() {
         
         let displayUserProfileController = DisplayUserProfileController()
