@@ -13,7 +13,7 @@ class MainScreenController: UIViewController {
 
     override func loadView() {
         view = mainScreenView
-
+        mainScreenView.startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -27,6 +27,13 @@ class MainScreenController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+    }
+
+    @objc private func startButtonTapped() {
+        let gameScreenController = GameScreenController()
+        // Push to game screen
+        navigationController?.pushViewController(gameScreenController, animated: true)
 
     }
     
