@@ -53,8 +53,8 @@ class HomePageViewController: UIViewController {
     }
     
     @objc func friendsButtonTapped() {
-        // Navigate to friends screen
-        print("Friends button tapped")
+        let mainScreenController = MainScreenController()
+        navigationController?.pushViewController(mainScreenController, animated: true)
     }
     
     @objc func profileButtonTapped() {
