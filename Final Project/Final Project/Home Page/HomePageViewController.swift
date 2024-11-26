@@ -22,6 +22,9 @@ class HomePageViewController: UIViewController {
         
         // Setup button targets
         setupActions()
+        
+        //Setup Start button
+        homePageView.startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
     
     func setupActions() {
@@ -53,8 +56,11 @@ class HomePageViewController: UIViewController {
     }
     
     @objc func startButtonTapped() {
-        // Add your game start logic here
         print("Start button tapped")
+        let gameScreenController = GameScreenController()
+        
+        // Push to game screen
+        navigationController?.pushViewController(gameScreenController, animated: true)
     }
         
     @objc func profileButtonTapped() {
