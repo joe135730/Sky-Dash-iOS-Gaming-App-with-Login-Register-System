@@ -2,10 +2,16 @@ import UIKit
 import PhotosUI
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseStorage
 
 class RegisterScreenController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     let registerView = RegisterScreenView()
     let childProgressView = ProgressSpinnerViewController()
+    //MARK: variable to store the picked Image...
+    var pickedImage:UIImage?
+    
+    //MARK: storage
+    let storage = Storage.storage()
     
     override func loadView() {
         view = registerView
@@ -81,6 +87,10 @@ class RegisterScreenController: UIViewController, UIImagePickerControllerDelegat
                let homePageController = HomePageViewController()
                homePageController.selectedProfileImage = self.registerView.buttonTakePhoto.imageView?.image // Pass current profile image
                navigationController?.pushViewController(homePageController, animated: true)
+                
+                //MARK: creating a new user on Firebase with photo...
+                showActivityIndicator()
+                uploadProfilePhotoToStorage()
 
             }
         }
@@ -142,6 +152,7 @@ extension RegisterScreenController:PHPickerViewControllerDelegate{
                                 selectedImage.withRenderingMode(.alwaysOriginal),
                                 for: .normal
                             )
+                            self.pickedImage = selectedImage
                         }
                     }
                 })
