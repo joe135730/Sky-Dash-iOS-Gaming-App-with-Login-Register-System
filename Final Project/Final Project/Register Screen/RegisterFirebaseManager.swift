@@ -27,7 +27,7 @@ extension RegisterScreenController{
         }
     }
     
-    //MARK: We set the name of the user after we create the account...
+    //MARK: set the name of the user after we create the account...
     func setNameOfTheUserInFirebaseAuth(name: String){
         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
         changeRequest?.displayName = name
@@ -45,7 +45,7 @@ extension RegisterScreenController{
         })
     }
     
-    //MARK: logic to add a contact to Firestore...
+    //MARK: add a contact to Firestore...
     func saveFriendToFirestore(friend: Contact) {
         guard let currentUser = Auth.auth().currentUser else { return }
         let db = Firestore.firestore()
