@@ -71,7 +71,8 @@ class HomePageViewController: UIViewController {
     
     @objc func rankingButtonTapped() {
         // Navigate to ranking screen
-        print("Ranking button tapped")
+        let rankingController = RankingScreenController()
+        navigationController?.pushViewController(rankingController, animated: true)
     }
     
     // @objc func merchandiseButtonTapped() {
