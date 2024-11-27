@@ -148,39 +148,36 @@ class RegisterScreenView: UIView {
             contentWrapper.widthAnchor.constraint(equalTo:self.safeAreaLayoutGuide.widthAnchor),
             contentWrapper.heightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.heightAnchor),
             
-            textFieldName.topAnchor.constraint(equalTo: self.contentWrapper.topAnchor, constant: 64),
+            textFieldName.topAnchor.constraint(equalTo: self.contentWrapper.topAnchor, constant: 32),
             textFieldName.centerXAnchor.constraint(equalTo: self.contentWrapper.centerXAnchor),
             textFieldName.leadingAnchor.constraint(equalTo: self.contentWrapper.leadingAnchor, constant: 40),
             textFieldName.trailingAnchor.constraint(equalTo: self.contentWrapper.trailingAnchor, constant: -40),
             
-            textFieldEmail.topAnchor.constraint(equalTo: textFieldName.bottomAnchor, constant: 16),
+            textFieldEmail.topAnchor.constraint(equalTo: textFieldName.bottomAnchor, constant: 12),
             textFieldEmail.centerXAnchor.constraint(equalTo: self.contentWrapper.centerXAnchor),
             textFieldEmail.leadingAnchor.constraint(equalTo: self.contentWrapper.leadingAnchor, constant: 40),
             textFieldEmail.trailingAnchor.constraint(equalTo: self.contentWrapper.trailingAnchor, constant: -40),
             
-            textFieldPassword.topAnchor.constraint(equalTo: textFieldEmail.bottomAnchor, constant: 16),
+            textFieldPassword.topAnchor.constraint(equalTo: textFieldEmail.bottomAnchor, constant: 12),
             textFieldPassword.centerXAnchor.constraint(equalTo: self.contentWrapper.centerXAnchor),
             textFieldPassword.leadingAnchor.constraint(equalTo: self.contentWrapper.leadingAnchor, constant: 40),
             textFieldPassword.trailingAnchor.constraint(equalTo: self.contentWrapper.trailingAnchor, constant: -40),
             
-            textFieldConfirmPassword.topAnchor.constraint(equalTo: textFieldPassword.bottomAnchor, constant: 16),
+            textFieldConfirmPassword.topAnchor.constraint(equalTo: textFieldPassword.bottomAnchor, constant: 12),
             textFieldConfirmPassword.centerXAnchor.constraint(equalTo: self.contentWrapper.centerXAnchor),
             textFieldConfirmPassword.leadingAnchor.constraint(equalTo: self.contentWrapper.leadingAnchor, constant: 40),
             textFieldConfirmPassword.trailingAnchor.constraint(equalTo: self.contentWrapper.trailingAnchor, constant: -40),
             
-            buttonTakePhoto.topAnchor.constraint(equalTo: textFieldConfirmPassword.bottomAnchor, constant: 16),
+            buttonTakePhoto.topAnchor.constraint(equalTo: textFieldConfirmPassword.bottomAnchor, constant: 12),
             buttonTakePhoto.centerXAnchor.constraint(equalTo: self.contentWrapper.centerXAnchor),
-            buttonTakePhoto.widthAnchor.constraint(equalToConstant: 50), // Width of the button
-            buttonTakePhoto.heightAnchor.constraint(equalToConstant: 50), // Height of the button
-
-                        
-            signUpButton.topAnchor.constraint(equalTo: textFieldConfirmPassword.bottomAnchor, constant: 60),
+            buttonTakePhoto.widthAnchor.constraint(equalToConstant: 50),
+            buttonTakePhoto.heightAnchor.constraint(equalToConstant: 50),
+            
+            signUpButton.topAnchor.constraint(equalTo: buttonTakePhoto.bottomAnchor, constant: 20),
             signUpButton.centerXAnchor.constraint(equalTo: self.contentWrapper.centerXAnchor),
             signUpButton.leadingAnchor.constraint(equalTo: self.contentWrapper.leadingAnchor, constant: 40),
             signUpButton.trailingAnchor.constraint(equalTo: self.contentWrapper.trailingAnchor, constant: -40),
-            
-            
-
+            signUpButton.bottomAnchor.constraint(lessThanOrEqualTo: self.contentWrapper.bottomAnchor, constant: -20)
         ])
     }
 

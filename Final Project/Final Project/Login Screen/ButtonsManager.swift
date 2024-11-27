@@ -12,42 +12,50 @@ extension ViewController{
         self.showActivityIndicator()
         
         if let email = loginView.textFieldEmail.text,
-           let password = loginView.textFieldPassword.text{
+           let password = loginView.textFieldPassword.text {
             
             // MARK: Validation check
             if email.isEmpty || password.isEmpty {
+                self.hideActivityIndicator()
                 showEmptyAlert()
             } else if !isValidEmail(email) {
+                self.hideActivityIndicator()
                 showInvalidEmailAlert()
             } else {
                 //MARK: Perform login action
                 performLogin(email: email, password: password)
             }
         } else {
-            
+            self.hideActivityIndicator()
         }
     }
     
     func performLogin(email: String, password: String) {
-        Auth.auth().signIn(withEmail: email, password:password, completion: {(result, error) in
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] (result, error) in
+            guard let self = self else { return }
+            
+            // Always hide the activity indicator when the async operation completes
+            defer {
+                DispatchQueue.main.async {
+                    self.hideActivityIndicator()
+                }
+            }
+            
             if error == nil {
-                self.hideActivityIndicator()
-
-                // Save token to UserDefaults
-                // UserDefaults.standard.set(result?.user.uid, forKey: "sessionToken")
-                
                 // Navigate to HomePage instead of MainScreen
                 let homePageViewController = HomePageViewController()
                 self.navigationController?.pushViewController(homePageViewController, animated: true)
-                
-            } else{
+            } else {
                 //MARK: Alert no user or incorrect password or other error
-                self.hideActivityIndicator()
-                let alert = UIAlertController(title: "Error!", message: "Incorrect Password or User not found!", preferredStyle: .alert)
+                let alert = UIAlertController(
+                    title: "Error!",
+                    message: "Incorrect Password or User not found!",
+                    preferredStyle: .alert
+                )
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 self.present(alert, animated: true)
             }
-        })
+        }
     }
     
     func isValidEmail(_ email: String) -> Bool {
