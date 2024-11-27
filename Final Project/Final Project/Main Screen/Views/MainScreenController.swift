@@ -28,8 +28,6 @@ class MainScreenController: UIViewController, UITableViewDataSource, UITableView
         // Setup floating button
         mainScreenView.floatingButtonAddChat.addTarget(self, action: #selector(floatingButtonTapped), for: .touchUpInside)
         view.bringSubviewToFront(mainScreenView.floatingButtonAddChat)
-        // Setup logout button
-        setupRightBarButton(isLoggedin: true)
         view.bringSubviewToFront(mainScreenView.floatingButtonAddChat)
         loadContacts()
     }
@@ -76,8 +74,15 @@ class MainScreenController: UIViewController, UITableViewDataSource, UITableView
         friendsVC.modalPresentationStyle = .pageSheet
         
         if let sheet = friendsVC.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
+            // Only use medium detent for a half-screen presentation
+            sheet.detents = [.medium()]
             sheet.prefersGrabberVisible = true
+            
+            // Prevent the sheet from being pulled up to full screen
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            
+            // Ensure the sheet stays at medium height even in landscape
+            sheet.selectedDetentIdentifier = .medium
         }
         
         present(friendsVC, animated: true)

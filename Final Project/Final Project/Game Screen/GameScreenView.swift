@@ -222,8 +222,6 @@ class GameScreenView: UIView {
         obstacles.removeAll { $0 == obstacle }
     }
     
-
-    
     // Add this new method
     func stopAllAnimations() {
         isGameOver = true  // Set game state

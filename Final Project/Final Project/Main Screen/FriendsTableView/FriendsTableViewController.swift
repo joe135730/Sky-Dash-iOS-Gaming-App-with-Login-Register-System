@@ -23,6 +23,22 @@ class FriendsTableViewController: UIViewController, UITableViewDataSource, UITab
         view.backgroundColor = UIColor.white.withAlphaComponent(0.9)
         setupTableView()
         loadAllUsers()
+
+        // Add a close button
+        let closeButton = UIButton(type: .system)
+        closeButton.setTitle("Close", for: .normal)
+        closeButton.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(closeButton)
+        
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+        ])
+    }
+
+     @objc private func dismissView() {
+        dismiss(animated: true)
     }
     
     private func setupTableView() {
