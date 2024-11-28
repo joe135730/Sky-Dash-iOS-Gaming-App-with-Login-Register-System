@@ -30,6 +30,9 @@ class MessageTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
+
+        contentView.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 28/255, alpha: 1.0) // Dark color
+        backgroundColor = .black //
     }
             
     required init?(coder: NSCoder) {

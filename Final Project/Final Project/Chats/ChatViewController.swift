@@ -62,7 +62,7 @@ class ChatViewController: UIViewController {
         chatView.tableView.delegate = self
         chatView.tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: "MessageCell")
         chatView.tableView.separatorStyle = .none
-        chatView.tableView.backgroundColor = .white
+        chatView.tableView.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 28/255, alpha: 1.0) // Dark color
     }
     
     private func listenToMessages() {

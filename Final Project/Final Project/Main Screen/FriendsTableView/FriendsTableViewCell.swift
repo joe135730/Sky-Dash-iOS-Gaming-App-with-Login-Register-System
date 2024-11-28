@@ -4,6 +4,7 @@ class FriendsTableViewCell: UITableViewCell {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .systemYellow
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -11,7 +12,7 @@ class FriendsTableViewCell: UITableViewCell {
     let emailLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14)
-        label.textColor = .gray
+        label.textColor = .systemYellow 
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -26,6 +27,15 @@ class FriendsTableViewCell: UITableViewCell {
     }
     
     private func setupUI() {
+        // Set background color
+        contentView.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 28/255, alpha: 1.0)
+        
+        // Add these lines for border
+        contentView.layer.borderWidth = 1.0
+        contentView.layer.borderColor = UIColor.white.cgColor
+        contentView.layer.cornerRadius = 8.0
+        contentView.clipsToBounds = true // Ensures content stays within the corner radius
+    
         contentView.addSubview(nameLabel)
         contentView.addSubview(emailLabel)
         

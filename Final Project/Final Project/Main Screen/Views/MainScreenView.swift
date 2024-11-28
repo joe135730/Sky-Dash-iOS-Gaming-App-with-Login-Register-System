@@ -20,6 +20,8 @@ class MainScreenView: UIView {
         tableViewContacts = UITableView()
         tableViewContacts.register(ContactsTableViewCell.self, forCellReuseIdentifier: Configs.tableViewContactsID)
         tableViewContacts.translatesAutoresizingMaskIntoConstraints = false
+        tableViewContacts.backgroundColor = .rgb(0,0,28)  // Add this line
+        tableViewContacts.separatorStyle = .none
         self.addSubview(tableViewContacts)
     }
     
@@ -27,6 +29,7 @@ class MainScreenView: UIView {
         bottomPopupTableView = UITableView()
         bottomPopupTableView.register(ContactsTableViewCell.self, forCellReuseIdentifier: Configs.tableViewContactsID)
         bottomPopupTableView.translatesAutoresizingMaskIntoConstraints = false
+        bottomPopupTableView.backgroundColor = .rgb(0,0,28)  // Add this line
         self.addSubview(bottomPopupTableView)
     }
     
@@ -39,7 +42,7 @@ class MainScreenView: UIView {
         let config = UIImage.SymbolConfiguration(pointSize: 32, weight: .medium)
         let image = UIImage(systemName: "person.crop.circle.fill.badge.plus", withConfiguration: config)
         floatingButtonAddChat.setImage(image, for: .normal)
-        floatingButtonAddChat.tintColor = .systemBlue
+        floatingButtonAddChat.tintColor = .systemYellow 
         
         // Shadow effect
         floatingButtonAddChat.layer.shadowColor = UIColor.black.cgColor
