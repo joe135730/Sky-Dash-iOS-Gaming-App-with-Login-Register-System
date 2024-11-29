@@ -29,7 +29,8 @@ class ChatView: UIView {
         let table = UITableView()
         table.register(MessageTableViewCell.self, forCellReuseIdentifier: "MessageCell")
         table.separatorStyle = .none
-        table.backgroundColor = .white
+        table.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 28/255, alpha: 1.0) // Dark color
+        //table.backgroundColor = .black
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -51,7 +52,8 @@ class ChatView: UIView {
     }
     
     private func setupUI() {
-        backgroundColor = .white
+        //backgroundColor = .black
+        backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 28/255, alpha: 1.0) // Dark color
         addSubview(tableView)
         addSubview(messageTextField)
         addSubview(sendButton)

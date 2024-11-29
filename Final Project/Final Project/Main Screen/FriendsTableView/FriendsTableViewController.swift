@@ -20,7 +20,7 @@ class FriendsTableViewController: UIViewController, UITableViewDataSource, UITab
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.white.withAlphaComponent(0.9)
+        view.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 28/255, alpha: 1.0)
         setupTableView()
         loadAllUsers()
 
@@ -45,6 +45,15 @@ class FriendsTableViewController: UIViewController, UITableViewDataSource, UITab
         friendTableView.dataSource = self
         friendTableView.delegate = self
         friendTableView.register(FriendsTableViewCell.self, forCellReuseIdentifier: "friendscell")
+        friendTableView.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 28/255, alpha: 1.0)
+
+         // 設置分隔線顏色為透明 // check
+        friendTableView.separatorColor = .clear
+        
+        // 去掉邊框
+        friendTableView.contentInset = .zero
+        friendTableView.layoutMargins = .zero
+        
         view.addSubview(friendTableView)
         friendTableView.frame = view.bounds
     }

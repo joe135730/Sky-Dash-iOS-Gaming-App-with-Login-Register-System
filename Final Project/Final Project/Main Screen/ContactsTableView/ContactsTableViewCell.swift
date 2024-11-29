@@ -34,7 +34,13 @@ class ContactsTableViewCell: UITableViewCell {
     
     func setupWrapperCellView(){
         wrapperCellView = UIView()
-        wrapperCellView.backgroundColor = .white
+        wrapperCellView.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 28/255, alpha: 1.0)
+        
+        // Add/modify these lines for border
+        wrapperCellView.layer.borderWidth = 1.0
+        wrapperCellView.layer.borderColor = UIColor.white.cgColor
+        wrapperCellView.layer.cornerRadius = 6.0
+    
         wrapperCellView.layer.cornerRadius = 6.0
         wrapperCellView.layer.shadowColor = UIColor.gray.cgColor
         wrapperCellView.layer.shadowOffset = .zero
@@ -42,6 +48,8 @@ class ContactsTableViewCell: UITableViewCell {
         wrapperCellView.layer.shadowOpacity = 0.4
         wrapperCellView.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(wrapperCellView)
+        
+        self.contentView.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 28/255, alpha: 1.0)
     }
     
     func setupProfilePic(){
@@ -57,6 +65,7 @@ class ContactsTableViewCell: UITableViewCell {
     func setupLabelName(){
         labelName = UILabel()
         labelName.font = UIFont.boldSystemFont(ofSize: 18)
+        labelName.textColor = .systemYellow
         labelName.translatesAutoresizingMaskIntoConstraints = false
         wrapperCellView.addSubview(labelName)
         wrapperCellView.addSubview(unreadIndicator) // Red circle for reading
@@ -65,14 +74,15 @@ class ContactsTableViewCell: UITableViewCell {
     func setupLabelText(){
         labelText = UILabel()
         labelText.font = UIFont.boldSystemFont(ofSize: 14)
+        labelText.textColor = .systemYellow
         labelText.translatesAutoresizingMaskIntoConstraints = false
         wrapperCellView.addSubview(labelText)
     }
     
     func setupLabelTime(){
         labelTime = UILabel()
-        labelTime.font = .systemFont(ofSize: 10) 
-        labelTime.textColor = .gray
+        labelTime.font = .systemFont(ofSize: 10)
+        labelTime.textColor = .systemYellow
         labelTime.translatesAutoresizingMaskIntoConstraints = false
         labelTime.setContentHuggingPriority(.required, for: .horizontal)
         labelTime.setContentCompressionResistancePriority(.required, for: .horizontal)
