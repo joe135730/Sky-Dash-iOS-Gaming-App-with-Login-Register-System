@@ -27,3 +27,4 @@ class DisplayUserProfileController: UIViewController {
         self.navigationController?.pushViewController(editProfileController, animated: true)
     }
 }
+

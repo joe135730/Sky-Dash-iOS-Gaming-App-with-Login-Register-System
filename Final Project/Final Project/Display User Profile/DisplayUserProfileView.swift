@@ -32,7 +32,7 @@ class DisplayUserProfileView: UIView {
         titleLabel = UILabel()
         titleLabel.text = "Display User Profile"
         titleLabel.font = .boldSystemFont(ofSize: 32)
-        titleLabel.textColor = .white
+        titleLabel.textColor = .systemYellow
         titleLabel.textAlignment = .center
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(titleLabel)
@@ -42,15 +42,17 @@ class DisplayUserProfileView: UIView {
         userNameTextField = UITextField()
         userNameTextField.placeholder = "Username"
         userNameTextField.borderStyle = .roundedRect
+        userNameTextField.isUserInteractionEnabled = false // Make it read-only
         userNameTextField.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(userNameTextField)
     }
-    
+
     func setupPasswordTextField() {
         passwordTextField = UITextField()
         passwordTextField.placeholder = "Password"
         passwordTextField.isSecureTextEntry = true
         passwordTextField.borderStyle = .roundedRect
+        passwordTextField.isUserInteractionEnabled = false // Make it read-only
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(passwordTextField)
     }
@@ -60,7 +62,7 @@ class DisplayUserProfileView: UIView {
         editProfileButton.setTitle("Edit Profile", for: .normal)
         editProfileButton.titleLabel?.font = .boldSystemFont(ofSize: 16)
         editProfileButton.setTitleColor(.white, for: .normal)
-        editProfileButton.backgroundColor = .systemBlue
+        editProfileButton.backgroundColor = .systemYellow
         editProfileButton.layer.cornerRadius = 5
         editProfileButton.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(editProfileButton)
