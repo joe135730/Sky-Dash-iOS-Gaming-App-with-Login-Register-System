@@ -4,6 +4,7 @@ import FirebaseAuth
 class HomePageViewController: UIViewController {
     let homePageView = HomePageView()
     var selectedProfileImage: UIImage?
+    var currentUser:FirebaseAuth.User?
     
     override func loadView() {
         view = homePageView
@@ -19,7 +20,7 @@ class HomePageViewController: UIViewController {
         if let profileImage = selectedProfileImage {
             homePageView.profileButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
         }
-        
+   
         // Setup button targets
         setupActions()
         
@@ -71,8 +72,8 @@ class HomePageViewController: UIViewController {
     
     @objc func rankingButtonTapped() {
         // Navigate to ranking screen
-        let rankingController = RankingScreenController()
-        navigationController?.pushViewController(rankingController, animated: true)
+        let rankingScreenController = RankingScreenController()
+        navigationController?.pushViewController(rankingScreenController, animated: true)
     }
     
     // @objc func merchandiseButtonTapped() {

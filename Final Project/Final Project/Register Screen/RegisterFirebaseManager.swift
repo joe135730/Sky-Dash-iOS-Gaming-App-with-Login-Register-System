@@ -65,7 +65,8 @@ extension RegisterScreenController{
                         "name": friend.name,
                         "email": friend.email,
                         "lastMessage": "",
-                        "lastMessageTime": Date()
+                        "lastMessageTime": Date(),
+                        "score": 0
                     ]
                     
                     // Create a contact collection for new users
@@ -92,7 +93,7 @@ extension RegisterScreenController{
     func uploadProfilePhotoToStorage(){
             var profilePhotoURL:URL?
             
-            //MARK: Upload the profile photo if there is any...
+            //MARK: Upload the profile photo
             if let image = pickedImage{
                 if let jpegData = image.jpegData(compressionQuality: 80){
                     let storageRef = storage.reference()

@@ -28,6 +28,11 @@ class ViewController: UIViewController {
                 // do nothing
             } else {
                 self.currentUser = user
+                /*
+                if let url = self.currentUser?.photoURL{
+                    RankingScreenView.profilePic.loadRemoteImage(from: url)
+                }
+                 */
                 
                 //MARK: Observe Firestore database to display the contacts list...
                 self.database.collection("users")
@@ -56,6 +61,7 @@ class ViewController: UIViewController {
                            }
                         }
                     })
+                
             }
         }
     }

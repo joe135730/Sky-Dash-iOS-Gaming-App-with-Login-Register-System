@@ -1,4 +1,6 @@
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 class GameScreenController: UIViewController {
     let gameScreenView = GameScreenView()
@@ -97,6 +99,14 @@ class GameScreenController: UIViewController {
         // Stop all ongoing animations
         gameScreenView.stopAllAnimations()
         
+        
+        // MARK: Update score
+        updatePlayerScore(newScore: score) { success in
+            if success {
+                print("Score successfully updated")
+            }
+        }
+        
         let alert = UIAlertController(title: "Game Over",
                                     message: "Score: \(score)",
                                     preferredStyle: .alert)
@@ -106,10 +116,79 @@ class GameScreenController: UIViewController {
         })
         
         alert.addAction(UIAlertAction(title: "Main Menu", style: .cancel) { [weak self] _ in
-            self?.navigationController?.popViewController(animated: true)
+            guard let self = self else { return }
+                    
+            // Navigate to Ranking Screen
+            if let rankingScreen = self.navigationController?.viewControllers.first(where: { $0 is RankingScreenController }) as? RankingScreenController {
+                rankingScreen.observeRankings() // Trigger reload in RankingScreenController
+            }
+            
+            self.navigationController?.popViewController(animated: true)
         })
         
         present(alert, animated: true)
+    }
+    
+    //MARK: update player score
+    private func updatePlayerScore(newScore: Int, completion: @escaping ( Bool) -> Void){
+        let db = Firestore.firestore()
+        guard let userEmail = Auth.auth().currentUser?.email else {
+            completion(false)
+            return
+        }
+        
+        let userName = Auth.auth().currentUser?.displayName ?? userEmail
+        
+        let rankingRef = db.collection("users")
+            .document(userEmail)
+            .collection("ranking")
+            .document()
+        
+        rankingRef.getDocument{ (snapshot, error) in
+            if let document = snapshot, document.exists{
+                let currentScore = document.data()?["score"] as? Int ?? 0
+                print("current score:\(currentScore)")
+                
+                if newScore > currentScore {
+                    rankingRef.updateData([
+                        "name": userName,
+                        "score": newScore,
+                        "profilePic": "",
+                        "timestamp": FieldValue.serverTimestamp()
+                    ]) {error in
+                        if let error = error{
+                            print("Error updating score:\(error.localizedDescription)")
+                            completion(false)
+                        }
+                        else{
+                            print("New score updated.")
+                            completion(true)
+                        }
+                    }
+                } else {
+                    print("Score not updated: Current score is higher")
+                    completion(false)
+                }
+            } else {
+                // If document doesn't exist, create it
+                rankingRef.setData([
+                    "name": userName,
+                    "score": newScore,
+                    "profilePic": "",
+                    "timestamp": FieldValue.serverTimestamp()
+               ]) { error in
+                   if let error = error {
+                       print("Error creating score:\(error.localizedDescription)")
+                       completion(false)
+                   } else {
+                       print("New score created.")
+                       completion(true)
+                   }
+               }
+            }
+            
+        }
+        
     }
     
     @objc private func handlePan(_ gesture: UIPanGestureRecognizer) {

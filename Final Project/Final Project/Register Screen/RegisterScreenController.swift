@@ -19,8 +19,7 @@ class RegisterScreenController: UIViewController, UIImagePickerControllerDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // MARK: Setup the sign up button
+
         registerView.signUpButton.addTarget(self, action: #selector(onSignUpBarButtonTapped), for: .touchUpInside)
         
         //MARK: adding menu to buttonTakePhoto...
@@ -72,15 +71,13 @@ class RegisterScreenController: UIViewController, UIImagePickerControllerDelegat
             if name.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty {
                 self.showEmptyAlert()
             } else if password != confirmPassword {
-                //MARK: Check if confirmPassword is same as passsword
                 self.showPasswordNotEqualAlert()
             } else if !isValidEmail(email) {
                 self.showInvalidEmailAlert()
             } else {
                 //MARK: Register new account through Firebase
                 self.registerNewAccount()
-                
-                //MARK: Show alert if signup Successfully
+
                 self.showSignUpSuccessInAlert()
                 
                 // Navigate to the HomePageController
@@ -96,12 +93,9 @@ class RegisterScreenController: UIViewController, UIImagePickerControllerDelegat
         }
     }
     
-    //MARK: show details in alert...
     func showSignUpSuccessInAlert(){
-            //MARK: show alert...
             let message = "Click ok to login"
             let alert = UIAlertController(title: "Sigin Up Succeed", message: message, preferredStyle: .alert)
-            //MARK: Click ok to go back to login page
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
                 self.navigationController?.popViewController(animated: true)
             }))

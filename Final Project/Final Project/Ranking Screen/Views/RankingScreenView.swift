@@ -1,21 +1,16 @@
 import UIKit
 
-class RankingScreenView: UITableViewCell {
-
+class RankingScreenView: UIView {
     
-    var wrapperCellView: UIView!
-    var profilePic: UIImageView!
-    var labelName: UILabel!
-    var labelRanking: UILabel!
+    var table: UITableView!
+    var backButton: UIButton!
     
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = UIColor.rgb(0,0,28)
-        setupWrapperCellView()
-        setupLabelName()
-        setupProfilePic()
-        setupLabelRanking()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = .rgb(0, 0, 28)
+        
+        setupBackButton()
+        setupTable()
         initConstraints()
     }
     
@@ -23,78 +18,41 @@ class RankingScreenView: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupWrapperCellView(){
-        wrapperCellView = UIView()
-        wrapperCellView.backgroundColor = UIColor.rgb(0,0,28)
-        wrapperCellView.layer.cornerRadius = 6.0
-        wrapperCellView.layer.shadowColor = UIColor.gray.cgColor
-        wrapperCellView.layer.shadowOffset = .zero
-        wrapperCellView.layer.shadowRadius = 4.0
-        wrapperCellView.layer.shadowOpacity = 0.4
-        wrapperCellView.translatesAutoresizingMaskIntoConstraints = false
-        wrapperCellView.clipsToBounds = false
-        contentView.addSubview(wrapperCellView)
+    private func setupBackButton(){
+        backButton = UIButton()
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        backButton.tintColor = .white
+        backButton.contentHorizontalAlignment = .left
+        addSubview(backButton)
     }
     
-    func setupProfilePic(){
-        profilePic = UIImageView()
-        profilePic.image = UIImage(systemName: "person.circle")
-        profilePic.contentMode = .scaleAspectFit
-        profilePic.clipsToBounds = true
-        profilePic.translatesAutoresizingMaskIntoConstraints = false
-        wrapperCellView.addSubview(profilePic)
+    private func setupTable() {
+        table = UITableView()
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.register(RankingScreenViewCell.self, forCellReuseIdentifier: "RankingCell")
+        table.separatorStyle = .none
+        table.backgroundColor = .rgb(0, 0, 28)
+        
+        // Add some padding at the top for the navigation bar
+        table.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+        // scroll indicator insets to match content insets
+        table.scrollIndicatorInsets = table.contentInset
+        addSubview(table)
     }
     
-    func setupLabelName(){
-        labelName = UILabel()
-        labelName.font = UIFont.boldSystemFont(ofSize: 18)
-        labelName.textColor = .systemYellow
-        labelName.translatesAutoresizingMaskIntoConstraints = false
-        wrapperCellView.addSubview(labelName)
+    private func initConstraints(){
+        NSLayoutConstraint.activate([
+            
+            backButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
+            backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            backButton.widthAnchor.constraint(equalToConstant: 44),
+            backButton.heightAnchor.constraint(equalToConstant: 44),
+            
+            table.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor,constant: 10),
+            table.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            table.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            table.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10)
+        ])
     }
-    
-
-    func setupLabelRanking(){
-        labelRanking = UILabel()
-        labelRanking.font = .systemFont(ofSize: 10)
-        labelRanking.textColor = .systemYellow
-        labelRanking.translatesAutoresizingMaskIntoConstraints = false
-        wrapperCellView.addSubview(labelRanking)
-    }
-    
-    func initConstraints() {
-            NSLayoutConstraint.activate([
-                wrapperCellView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-                wrapperCellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-                wrapperCellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-                wrapperCellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-                
-                profilePic.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 16),
-                profilePic.centerYAnchor.constraint(equalTo: wrapperCellView.centerYAnchor),
-                profilePic.widthAnchor.constraint(equalToConstant: 40),
-                profilePic.heightAnchor.constraint(equalToConstant: 40),
-                
-                labelName.leadingAnchor.constraint(equalTo: profilePic.trailingAnchor, constant: 16),
-                labelName.centerYAnchor.constraint(equalTo: wrapperCellView.centerYAnchor),
-                
-                labelRanking.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
-                labelRanking.centerYAnchor.constraint(equalTo: wrapperCellView.centerYAnchor)
-            ])
-    }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        wrapperCellView.layoutIfNeeded()
-    }
-
 }
