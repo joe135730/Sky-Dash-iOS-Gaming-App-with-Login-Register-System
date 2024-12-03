@@ -31,9 +31,9 @@ class DisplayUserProfileController: UIViewController {
         }
         
         // Set the email field to the current user's email
-        displayUserProfileView.userNameTextField.text = currentUser.email
+        displayUserProfileView.emailTextField.text = currentUser.email
         
         // Always show the password as "******"
-        displayUserProfileView.passwordTextField.text = "******"
+        displayUserProfileView.passwordTextField.text = "****************"
     }
 }

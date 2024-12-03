@@ -24,7 +24,7 @@ class EditUserProfileController: UIViewController {
             return
         }
         // Display current user's email
-        editUserProfileView.playerNameLabel.text = "Email: \(currentUser.email ?? "")"
+        editUserProfileView.emailTextField.text = "\(currentUser.email ?? "")"
     }
     
     @objc func onConfirmTapped() {
