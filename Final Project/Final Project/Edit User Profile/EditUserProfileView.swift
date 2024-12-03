@@ -1,10 +1,3 @@
-//
-//  EditUserProfileView.swift
-//  WA8_40
-//
-//  Created by jocw on 11/27/24.
-//
-
 import UIKit
 
 class EditUserProfileView: UIView {
@@ -37,7 +30,7 @@ class EditUserProfileView: UIView {
 
     func setupPlayerNameLabel() {
         playerNameLabel = UILabel()
-        playerNameLabel.text = "Player Name: John"
+        playerNameLabel.text = "Email: "
         playerNameLabel.textColor = .white  // Match the text color
         playerNameLabel.font = .systemFont(ofSize: 16)
         playerNameLabel.textAlignment = .center
@@ -47,7 +40,7 @@ class EditUserProfileView: UIView {
     
     func setupPasswordTextField() {
         passwordTextField = UITextField()
-        passwordTextField.placeholder = "Password"
+        passwordTextField.placeholder = "New Password"
         passwordTextField.isSecureTextEntry = true  // Add secure text entry
         passwordTextField.borderStyle = .roundedRect
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -90,4 +83,3 @@ class EditUserProfileView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
