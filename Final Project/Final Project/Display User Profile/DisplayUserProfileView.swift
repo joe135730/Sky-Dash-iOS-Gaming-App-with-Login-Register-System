@@ -1,26 +1,20 @@
-//
-//  DisplayUserProfileView.swift
-//  WA8_40
-//
-//  Created by jocw on 11/27/24.
-//
-
 import UIKit
 
 class DisplayUserProfileView: UIView {
     var titleLabel: UILabel!
-    var userNameTextField: UITextField!
+    var emailTextField: UITextField!
     var passwordTextField: UITextField!
     var editProfileButton: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .rgb(0,0,28) // Assuming you have the rgb extension
+        self.backgroundColor = .rgb(0, 0, 28)
         
         setupTitleLabel()
-        setupUserNameTextField()
+        setupEmailTextField()
         setupPasswordTextField()
         setupEditProfileButton()
+        
         initConstraints()
     }
     
@@ -38,13 +32,13 @@ class DisplayUserProfileView: UIView {
         self.addSubview(titleLabel)
     }
     
-    func setupUserNameTextField() {
-        userNameTextField = UITextField()
-        userNameTextField.placeholder = "Username"
-        userNameTextField.borderStyle = .roundedRect
-        userNameTextField.isUserInteractionEnabled = false // Make it read-only
-        userNameTextField.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(userNameTextField)
+    func setupEmailTextField() {
+        emailTextField = UITextField()
+        emailTextField.placeholder = "Email"
+        emailTextField.borderStyle = .roundedRect
+        emailTextField.isUserInteractionEnabled = false // read-only
+        emailTextField.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(emailTextField)
     }
 
     func setupPasswordTextField() {
@@ -52,7 +46,7 @@ class DisplayUserProfileView: UIView {
         passwordTextField.placeholder = "Password"
         passwordTextField.isSecureTextEntry = true
         passwordTextField.borderStyle = .roundedRect
-        passwordTextField.isUserInteractionEnabled = false // Make it read-only
+        passwordTextField.isUserInteractionEnabled = false // read-only
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(passwordTextField)
     }
@@ -61,7 +55,7 @@ class DisplayUserProfileView: UIView {
         editProfileButton = UIButton(type: .system)
         editProfileButton.setTitle("Edit Profile", for: .normal)
         editProfileButton.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        editProfileButton.setTitleColor(.white, for: .normal)
+        editProfileButton.setTitleColor(.black, for: .normal)
         editProfileButton.backgroundColor = .systemYellow
         editProfileButton.layer.cornerRadius = 5
         editProfileButton.translatesAutoresizingMaskIntoConstraints = false
@@ -75,21 +69,21 @@ class DisplayUserProfileView: UIView {
             titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
             // Username TextField constraints
-            userNameTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
-            userNameTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            userNameTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            userNameTextField.heightAnchor.constraint(equalToConstant: 40),
+            emailTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
+            emailTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 85),
+            emailTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -85),
+            emailTextField.heightAnchor.constraint(equalToConstant: 40),
             
             // Password TextField constraints
-            passwordTextField.topAnchor.constraint(equalTo: userNameTextField.bottomAnchor, constant: 20),
-            passwordTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            passwordTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
+            passwordTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 85),
+            passwordTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -85),
             passwordTextField.heightAnchor.constraint(equalToConstant: 40),
             
             // Edit Profile Button constraints
             editProfileButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30),
             editProfileButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            editProfileButton.widthAnchor.constraint(equalToConstant: 120),
+            editProfileButton.widthAnchor.constraint(equalToConstant: 150),
             editProfileButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }

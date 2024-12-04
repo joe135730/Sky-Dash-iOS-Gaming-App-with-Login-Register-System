@@ -1,53 +1,46 @@
-//
-//  EditUserProfileView.swift
-//  WA8_40
-//
-//  Created by jocw on 11/27/24.
-//
-
 import UIKit
 
 class EditUserProfileView: UIView {
 
     var titleLabel: UILabel!
-    var playerNameLabel: UILabel!
+    var emailTextField: UITextField!
     var passwordTextField: UITextField!
     var confirmButton: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .rgb(0,0,28)  // Match the dark blue background
+        self.backgroundColor = .rgb(0, 0, 28)
         
         setupTitleLabel()
-        setupPlayerNameLabel()
+        setupEmailTextField()
         setupPasswordTextField()
         setupConfirmButton()
+        
         initConstraints()
     }
     
     func setupTitleLabel() {
         titleLabel = UILabel()
         titleLabel.text = "Edit Profile"
-        titleLabel.font = .boldSystemFont(ofSize: 32)  // Match the font size
-        titleLabel.textColor = .white  // Match the text color
+        titleLabel.font = .boldSystemFont(ofSize: 32)
+        titleLabel.textColor = .systemYellow
         titleLabel.textAlignment = .center
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(titleLabel)
     }
 
-    func setupPlayerNameLabel() {
-        playerNameLabel = UILabel()
-        playerNameLabel.text = "Player Name: John"
-        playerNameLabel.textColor = .white  // Match the text color
-        playerNameLabel.font = .systemFont(ofSize: 16)
-        playerNameLabel.textAlignment = .center
-        playerNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(playerNameLabel)
+    func setupEmailTextField() {
+        emailTextField = UITextField()
+        emailTextField.placeholder = "Email"
+        emailTextField.borderStyle = .roundedRect
+        emailTextField.isUserInteractionEnabled = false // read-only
+        emailTextField.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(emailTextField)
     }
     
     func setupPasswordTextField() {
         passwordTextField = UITextField()
-        passwordTextField.placeholder = "Password"
+        passwordTextField.placeholder = "New Password"
         passwordTextField.isSecureTextEntry = true  // Add secure text entry
         passwordTextField.borderStyle = .roundedRect
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -58,8 +51,8 @@ class EditUserProfileView: UIView {
         confirmButton = UIButton(type: .system)
         confirmButton.setTitle("Confirm", for: .normal)
         confirmButton.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        confirmButton.setTitleColor(.white, for: .normal)
-        confirmButton.backgroundColor = .systemBlue  // Match the button style
+        confirmButton.setTitleColor(.black, for: .normal) // Change text color to black
+        confirmButton.backgroundColor = .systemYellow  // Change button background to system yellow
         confirmButton.layer.cornerRadius = 5
         confirmButton.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(confirmButton)
@@ -70,13 +63,14 @@ class EditUserProfileView: UIView {
             titleLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
             titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
-            playerNameLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
-            playerNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            playerNameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            emailTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
+            emailTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 85),
+            emailTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -85),
+            emailTextField.heightAnchor.constraint(equalToConstant: 40),
             
-            passwordTextField.topAnchor.constraint(equalTo: playerNameLabel.bottomAnchor, constant: 20),
-            passwordTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            passwordTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
+            passwordTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 85),
+            passwordTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -85),
             passwordTextField.heightAnchor.constraint(equalToConstant: 40),
             
             confirmButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30),
@@ -90,4 +84,3 @@ class EditUserProfileView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
-

@@ -16,10 +16,17 @@ class ViewController: UIViewController {
     override func loadView() {
         view = loginView
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
+    }
+
 
     //MARK: viewWillAppear, Lifecycle method where handle logic before the screen is loaded
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         
         //MARK: handling if the Authentication state is changed (sign in, sign out, register)...
         //MARK: handleAuth is a authentication state change listener, used for tracking whether any user is signed in
