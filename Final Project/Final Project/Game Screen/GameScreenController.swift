@@ -99,8 +99,19 @@ class GameScreenController: UIViewController {
         // Stop all ongoing animations
         gameScreenView.stopAllAnimations()
         
+        //MARK: modify here
+        let rankingData = RankingModel(
+            profilePic: UIImage(systemName: "person.circle") ?? UIImage(),
+            name: Auth.auth().currentUser?.displayName ?? Auth.auth().currentUser?.email ?? "",
+            ranking: "",
+            score: score
+        )
         
-        // MARK: Update score
+        // save the score
+        if let rankingScreen = navigationController?.viewControllers.first(where: { $0 is RankingScreenController }) as? RankingScreenController {
+            rankingScreen.saveRankingToFirestore(rankingData: rankingData)
+        }
+        
         updatePlayerScore(newScore: score) { success in
             if success {
                 print("Score successfully updated")
@@ -120,7 +131,7 @@ class GameScreenController: UIViewController {
                     
             // Navigate to Ranking Screen
             if let rankingScreen = self.navigationController?.viewControllers.first(where: { $0 is RankingScreenController }) as? RankingScreenController {
-                rankingScreen.observeRankings() // Trigger reload in RankingScreenController
+                rankingScreen.observeRankings() 
             }
             
             self.navigationController?.popViewController(animated: true)

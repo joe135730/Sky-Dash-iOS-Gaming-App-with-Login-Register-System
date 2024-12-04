@@ -26,27 +26,68 @@ class RankingScreenController: UIViewController, UITableViewDataSource, UITableV
         rankingView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         
         observeRankings()
-        print("observe success")
     }
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
-
+/*
     func saveRankingToFirestore(rankingData: RankingModel) {
-        guard let userEmail = Auth.auth().currentUser?.email else{
+        guard let userEmail = Auth.auth().currentUser?.email else {
+            print("Error: User not logged in.")
+            return
+        }
+        
+        let rankingCollection = db.collection("rankings")
+        
+        rankingCollection
+            .whereField("userEmail", isEqualTo: userEmail)
+            .order(by: "score", descending: true)
+            .limit(to: 1)
+            .getDocuments { [weak self] (snapshot, error) in
+                if let error = error {
+                    print("Error checking existing score: \(error.localizedDescription)")
+                    return
+                }
+                
+                let currentHighScore = snapshot?.documents.first?.data()["score"] as? Int ?? 0
+                
+                if rankingData.score > currentHighScore || snapshot?.documents.isEmpty == true {
+                    let newRankingDoc = rankingCollection.document()
+                    
+                    let data: [String: Any] = [
+                        "userEmail": userEmail,  // Important to include this
+                        "name": rankingData.name,
+                        "score": rankingData.score,
+                        "profilePic": "",
+                        "timestamp": FieldValue.serverTimestamp()
+                    ]
+                    
+                    newRankingDoc.setData(data) { error in
+                        if let error = error {
+                            print("Error saving ranking: \(error.localizedDescription)")
+                        } else {
+                            print("Ranking saved successfully! Score: \(rankingData.score)")
+                        }
+                    }
+                }
+        }
+    }
+    */
+    func saveRankingToFirestore(rankingData: RankingModel) {
+        guard let userEmail = Auth.auth().currentUser?.email,
+        let photoURL = Auth.auth().currentUser?.photoURL?.absoluteString else{
             print("Error: User not logged in.")
             return
         }
         
         let rankingCollection = db.collection("users")
             .document(userEmail)
-            .collection("ranking")
-            .document()
+            .collection("rankings")
      
-        rankingCollection.setData([
+        rankingCollection.addDocument(data: [
             "name": rankingData.name,
             "score": rankingData.score,
-            "profilePic": ""
+            "profilePic": photoURL
         ]) { error in
             if let error = error {
                 print("Error saving ranking: \(error.localizedDescription)")
@@ -125,8 +166,17 @@ class RankingScreenController: UIViewController, UITableViewDataSource, UITableV
                 }
             }
     }
-
-    func observeOwnScore() {
+   
+    private func getProfileImage(from urlString: String) -> UIImage {
+        let defaultImage = UIImage(systemName: "person.circle") ?? UIImage()
+        guard let url = URL(string: urlString),
+              let data = try? Data(contentsOf: url),
+              let image = UIImage(data: data) else {
+            return defaultImage
+        }
+        return image
+    }
+func observeOwnScore() {
         guard let userEmail = Auth.auth().currentUser?.email else {
             print("Error: User not logged in.")
             return

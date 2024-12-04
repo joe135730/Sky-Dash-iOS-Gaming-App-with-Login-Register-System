@@ -128,6 +128,7 @@ class RegisterScreenController: UIViewController, UIImagePickerControllerDelegat
     }
 
 }
+
 //MARK: adopting required protocols for PHPicker...
 extension RegisterScreenController:PHPickerViewControllerDelegate{
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
@@ -154,3 +155,4 @@ extension RegisterScreenController:PHPickerViewControllerDelegate{
         }
     }
 }
+
