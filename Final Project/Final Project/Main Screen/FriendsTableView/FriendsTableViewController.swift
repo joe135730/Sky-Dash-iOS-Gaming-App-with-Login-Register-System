@@ -110,52 +110,7 @@ class FriendsTableViewController: UIViewController, UITableViewDataSource, UITab
                 }
         }
     }
-    
-    /*
-    private func loadAllUsers() {
-        guard let currentUserEmail = Auth.auth().currentUser?.email?.lowercased() else {
-            print("No current user email found")
-            return
-        }
-        
-        print("Current user email: \(currentUserEmail)")
-        
-        // Get all users from the users collection
-        db.collection("users").getDocuments { [weak self] (snapshot, error) in
-            if let error = error {
-                print("Error loading users: \(error)")
-                return
-            }
-            
-            guard let documents = snapshot?.documents else {
-                print("No users found")
-                return
-            }
-            
-            // Filter out the current user
-            self?.friends = documents.compactMap { document -> Contact? in
-                do {
-                    let contact = try document.data(as: Contact.self)
-                    // Only include users that are not the current user
-                    if contact.email.lowercased() != currentUserEmail {
-                        print("Adding user: \(contact.name) (\(contact.email))")
-                        return contact
-                    }
-                    return nil
-                } catch {
-                    print("Error decoding contact: \(error)")
-                    return nil
-                }
-            }
-            
-            print("Total friends loaded: \(self?.friends.count ?? 0)")
-            
-            DispatchQueue.main.async {
-                self?.friendTableView.reloadData()
-            }
-        }
-    }
-    */
+       
     // TableView DataSource & Delegate methods...
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return friends.count

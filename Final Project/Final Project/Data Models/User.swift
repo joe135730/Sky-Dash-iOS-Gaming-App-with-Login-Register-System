@@ -12,7 +12,7 @@ struct Contact: Codable {
     var lastMessage: String?
     var lastMessageTime: Date?
     var hasUnreadMessages: Bool?
-    var score: Int
+    var score: Int?
     var photoURL: String?
     
     init(name: String, email: String, score: Int = 0, phototURL: String? ) {

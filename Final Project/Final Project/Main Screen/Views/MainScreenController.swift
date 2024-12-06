@@ -34,7 +34,8 @@ class MainScreenController: UIViewController, UITableViewDataSource, UITableView
     
     //MARK: save friend to Firestore - collection: users, document: userEmail
     func saveFriendToFirestore(friend: Contact) {
-      let userEmail = "current_user_email" // Replace with actual current user email
+      //let userEmail = "current_user_email" // Replace with actual current user email
+      guard let userEmail = Auth.auth().currentUser?.email?.lowercased() else { return }
       let collectionContacts = db.collection("users").document(userEmail).collection("contacts")
       
       do {
@@ -51,7 +52,8 @@ class MainScreenController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func loadFriendsFirestore() {
-        let userEmail = "current_user_email"
+        //let userEmail = "current_user_email"
+        guard let userEmail = Auth.auth().currentUser?.email?.lowercased() else { return }
         let collectionContacts = db.collection("users").document(userEmail).collection("contacts")
         collectionContacts.whereField("email", isEqualTo: userEmail).getDocuments { (snapshot, error) in
             if let error = error {
