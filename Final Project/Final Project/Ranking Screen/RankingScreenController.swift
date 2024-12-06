@@ -76,7 +76,7 @@ class RankingScreenController: UIViewController, UITableViewDataSource, UITableV
     func saveRankingToFirestore(rankingData: RankingModel) {
         guard let userEmail = Auth.auth().currentUser?.email,
         let photoURL = Auth.auth().currentUser?.photoURL?.absoluteString else{
-            print("Error: User not logged in.")
+            print("Error: photo URL not show in firestore.")
             return
         }
         
@@ -92,7 +92,7 @@ class RankingScreenController: UIViewController, UITableViewDataSource, UITableV
             if let error = error {
                 print("Error saving ranking: \(error.localizedDescription)")
             } else {
-                print("Ranking saved successfully")
+                print("Ranking saved to firestore successfully")
             }
         }
 
@@ -105,7 +105,7 @@ class RankingScreenController: UIViewController, UITableViewDataSource, UITableV
             return
         }
         
-        let rankingObserve = db.collectionGroup("ranking")
+        let rankingObserve = db.collectionGroup("rankings")
             .order(by: "score", descending: true)
             .addSnapshotListener { [weak self] querySnapshot, error in
                 guard let self = self else { return }
@@ -126,7 +126,7 @@ class RankingScreenController: UIViewController, UITableViewDataSource, UITableV
                         let data = document.data()
                         guard let name = data["name"] as? String,
                               let score = data["score"] as? Int,
-                              let imageUrl = data["profilePic"] as? String,
+                              let imageUrl = data["profilePicURL"] as? String,
                               let userEmail = document.reference.parent.parent?.documentID else { continue }
                         
                         if let existing = userBestScores[userEmail] {
@@ -143,14 +143,15 @@ class RankingScreenController: UIViewController, UITableViewDataSource, UITableV
                         .sorted { $0.score > $1.score }
                         .enumerated()
                         .map { (index, userData) -> RankingModel in
+                            /*
                             var profileImage = UIImage(systemName: "person.circle") ?? UIImage()
                             if let url = URL(string: userData.imageUrl),
                                let data = try? Data(contentsOf: url) {
                                 profileImage = UIImage(data: data) ?? profileImage
                             }
-                            
+                            */
                             return RankingModel(
-                                profilePic: profileImage,
+                                profilePicURL: userData.imageUrl,
                                 name: userData.name,
                                 ranking: "#\(index + 1)",
                                 score: userData.score
@@ -176,7 +177,8 @@ class RankingScreenController: UIViewController, UITableViewDataSource, UITableV
         }
         return image
     }
-func observeOwnScore() {
+    
+    func observeOwnScore() {
         guard let userEmail = Auth.auth().currentUser?.email else {
             print("Error: User not logged in.")
             return
@@ -202,13 +204,13 @@ func observeOwnScore() {
                         guard let name = data["name"] as? String,
                               let score = data["score"] as? Int,
                               let imageUrl = data["profilePic"] as? String else { return nil }
-                        
+                        /*
                         var profileImage = UIImage(systemName: "person.circle") ?? UIImage()
                         if let url = URL(string: imageUrl),let data = try? Data(contentsOf: url) {
                             profileImage = UIImage(data: data) ?? profileImage
-                        }
+                        }*/
                         return RankingModel(
-                            profilePic: profileImage,
+                            profilePicURL: imageUrl,
                             name: name,
                             ranking: "#\(index + 1)",
                             score: score
@@ -217,9 +219,7 @@ func observeOwnScore() {
                     
                     DispatchQueue.main.async {
                         self.rankingData = newRankingData
-                        print("show new ranking data: \(newRankingData)")
                         self.rankingView.table.reloadData()
-                        print("show Reload")
                     }
                 }
             }
@@ -243,12 +243,15 @@ func observeOwnScore() {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RankingCell", for: indexPath) as! RankingScreenViewCell
         let ranking = rankingData[indexPath.row]
+        cell.configure(with: ranking)
+        cell.labelRanking.text = ranking.ranking
+        /*
         cell.labelName.text = ranking.name
         cell.labelRanking.text = ranking.ranking
         cell.labelScore.text = "\(ranking.score)"
         cell.profilePic.image = ranking.profilePic
-        
-        print("Displaying cell for: \(ranking.name), \(ranking.ranking), \(ranking.score)")
+        */
+        print("Displaying cell for: \(ranking.name), \(ranking.ranking), \(ranking.score), photoURL: \(ranking.profilePicURL ?? "no photo")")
         return cell
     }
 }

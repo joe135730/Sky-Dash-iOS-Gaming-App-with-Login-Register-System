@@ -4,19 +4,17 @@ class RegisterScreenView: UIView {
     //MARK: Scroll view
     var contentWrapper: UIScrollView!
 
-    //MARK: TextFields
     var textFieldName:UITextField!
     var textFieldEmail:UITextField!
     var textFieldPassword:UITextField!
     var textFieldConfirmPassword:UITextField!
     
-    //MARK: Login & Sign Up Button
     var signUpButton: UIButton!
+    //MARK: profile photo
     var buttonTakePhoto: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        //self.backgroundColor = .white
         self.backgroundColor = .rgb(0,0,28)
         
         setUpContentWrapper()
@@ -25,6 +23,7 @@ class RegisterScreenView: UIView {
         setupTextFieldEmail()
         setupTextFieldPassword()
         setupTextFieldConfirmPassword()
+        
         setupSiginUpButton()
         setupbuttonTakePhoto()
         
@@ -120,7 +119,6 @@ class RegisterScreenView: UIView {
         buttonTakePhoto = UIButton(type: .system)
         buttonTakePhoto.setTitle("", for: .normal)
         buttonTakePhoto.setImage(UIImage(systemName: "camera.fill"), for: .normal)
-        //buttonTakePhoto.setImage(UIImage(systemName: "camera.fill")?.withRenderingMode(.alwaysOriginal), for: .normal)
         buttonTakePhoto.contentHorizontalAlignment = .fill
         buttonTakePhoto.contentVerticalAlignment = .fill
         buttonTakePhoto.imageView?.contentMode = .scaleAspectFit
@@ -138,7 +136,6 @@ class RegisterScreenView: UIView {
         signUpButton.layer.cornerRadius = 10.0
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
         contentWrapper.addSubview(signUpButton)
-
     }
     
     func initConstraints(){

@@ -23,6 +23,28 @@ class RankingScreenViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //photo
+    func configure(with ranking: RankingModel) {
+        labelName.text = ranking.name
+        labelScore.text = "\(ranking.score)"
+        
+        // Load profile photo if available
+        if let photoURLString = ranking.profilePicURL,
+           let photoURL = URL(string: photoURLString) {
+            profilePic.loadRemoteImage(from: photoURL)
+        } else {
+            // Set default image if no photo URL
+            profilePic.image = UIImage(systemName: "person.circle")?.withRenderingMode(.alwaysOriginal)
+        }
+    }
+    
+    struct Contact: Codable {
+        let name: String
+        let email: String
+        let photoURL: String?
+        let score: Int
+    }
+    
     func setupWrapperCellView() {
         wrapperCellView = UIView()
         wrapperCellView.backgroundColor = UIColor.rgb(0, 0, 28)
@@ -33,8 +55,11 @@ class RankingScreenViewCell: UITableViewCell {
     
     func setupProfilePic() {
         profilePic = UIImageView()
+        profilePic.image = UIImage(systemName: "person.circle")?.withRenderingMode(.alwaysOriginal)
         profilePic.contentMode = .scaleAspectFit
         profilePic.clipsToBounds = true
+        profilePic.layer.masksToBounds = true
+        profilePic.layer.cornerRadius = 16.0
         profilePic.translatesAutoresizingMaskIntoConstraints = false
         wrapperCellView.addSubview(profilePic)
     }

@@ -100,8 +100,9 @@ class GameScreenController: UIViewController {
         gameScreenView.stopAllAnimations()
         
         //MARK: modify here
+        let profilePhotoURL = Auth.auth().currentUser?.photoURL?.absoluteString
         let rankingData = RankingModel(
-            profilePic: UIImage(systemName: "person.circle") ?? UIImage(),
+            profilePicURL: profilePhotoURL,
             name: Auth.auth().currentUser?.displayName ?? Auth.auth().currentUser?.email ?? "",
             ranking: "",
             score: score
@@ -149,10 +150,11 @@ class GameScreenController: UIViewController {
         }
         
         let userName = Auth.auth().currentUser?.displayName ?? userEmail
+        let profilePhotoURL = Auth.auth().currentUser?.photoURL?.absoluteString
         
         let rankingRef = db.collection("users")
             .document(userEmail)
-            .collection("ranking")
+            .collection("rankings")
             .document()
         
         rankingRef.getDocument{ (snapshot, error) in
@@ -164,7 +166,7 @@ class GameScreenController: UIViewController {
                     rankingRef.updateData([
                         "name": userName,
                         "score": newScore,
-                        "profilePic": "",
+                        "profilePicURL": profilePhotoURL,
                         "timestamp": FieldValue.serverTimestamp()
                     ]) {error in
                         if let error = error{
@@ -185,7 +187,7 @@ class GameScreenController: UIViewController {
                 rankingRef.setData([
                     "name": userName,
                     "score": newScore,
-                    "profilePic": "",
+                    "profilePicURL": profilePhotoURL ?? "",
                     "timestamp": FieldValue.serverTimestamp()
                ]) { error in
                    if let error = error {

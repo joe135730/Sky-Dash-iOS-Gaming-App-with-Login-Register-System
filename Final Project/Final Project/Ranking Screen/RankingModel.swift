@@ -2,36 +2,36 @@ import UIKit
 import FirebaseFirestore
 
 struct RankingModel {
-    var profilePic: UIImage
+    var profilePicURL: String?
     var name: String
     var ranking: String
     var score: Int
     
-    init(profilePic: UIImage, name: String, ranking: String, score: Int){
-        self.profilePic = profilePic
+    init(profilePicURL: String? = nil, name: String, ranking: String, score: Int){
+        self.profilePicURL = profilePicURL
         self.name = name
         self.ranking = ranking
         self.score = score
     }
     
     init?(document: [String: Any]) {
-        guard let profilePic = document["profilePic"] as? String,
-              let name = document["name"] as? String,
+        guard let name = document["name"] as? String,
               let score = document["score"] as? Int else {
             return nil
         }
-        self.profilePic = UIImage(systemName: "person.circle") ?? UIImage()
+        
+        self.profilePicURL = document["profilePicURL"] as? String
         self.name = name
-        self.ranking = ""
+        self.ranking = document["ranking"] as? String ?? ""
         self.score = score
     }
     
     func toDictionary() -> [String: Any] {
-        let imageUrlString = ""
-           return [
-               "profilePic": "",
-               "name": name,
-               "score": score
-           ]
-       }
+       return [
+           "profilePicURL": profilePicURL ?? "",
+           "name": name,
+           "ranking": ranking,
+           "score": score
+       ]
+   }
 }

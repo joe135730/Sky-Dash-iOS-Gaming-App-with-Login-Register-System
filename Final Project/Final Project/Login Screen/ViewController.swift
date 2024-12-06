@@ -36,10 +36,11 @@ class ViewController: UIViewController {
             } else {
                 self.currentUser = user
                 //MARK: setting the profile photo
+                /*
                 if let url = self.currentUser?.photoURL{
-                    //RankingScreenView.profilePic.loadRemoteImage(from: url)
+                    //self.RankingScreenViewCell.profilePic.loadRemoteImage(from: url)
                 }
-                 
+                */
                 
                 //MARK: Observe Firestore database to display the contacts list...
                 self.database.collection("users")

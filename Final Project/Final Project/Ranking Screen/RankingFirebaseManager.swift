@@ -69,23 +69,21 @@ extension RankingScreenController{
                     let data = document.data()
                     guard let name = data["name"] as? String,
                           let ranking  = data["ranking"] as? String,
-                          let score = data["score"] as? Int else {
+                          let score = data["score"] as? Int,
+                          let profilePicURL = data["profilePicURL"] as? String else {
                         return nil
                     }
-                    
                     return RankingModel(
-                        profilePic: UIImage(systemName: "person.circle") ?? UIImage(),
+                        profilePicURL: profilePicURL,
                         name: name,
                         ranking: "",
                         score: score
                     )
                 }
-                
                 // Assign rankings
                 for (index, ranking) in rankings.enumerated() {
                     rankings[index].ranking = "#\(index + 1)"
                 }
-                
                 completion(rankings)
             }
     }

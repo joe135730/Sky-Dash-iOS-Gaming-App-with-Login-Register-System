@@ -4,29 +4,27 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
 
-class RegisterScreenController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class RegisterScreenController: UIViewController {
     let registerView = RegisterScreenView()
     let childProgressView = ProgressSpinnerViewController()
-    //MARK: variable to store the picked Image...
-    var pickedImage:UIImage?
     
+    //MARK: store the picked Image...
+    var pickedImage:UIImage?
     //MARK: storage
     let storage = Storage.storage()
     
     override func loadView() {
         view = registerView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         registerView.signUpButton.addTarget(self, action: #selector(onSignUpBarButtonTapped), for: .touchUpInside)
         
         //MARK: adding menu to buttonTakePhoto...
         registerView.buttonTakePhoto.menu = getMenuImagePicker()
     }
     
-    //MARK: set the profile photo
     func getMenuImagePicker() -> UIMenu{
         var menuItems = [
             UIAction(title: "Camera",handler: {(_) in
@@ -36,11 +34,10 @@ class RegisterScreenController: UIViewController, UIImagePickerControllerDelegat
                 self.pickPhotoFromGallery()
             })
         ]
-        
         return UIMenu(title: "Select source", children: menuItems)
     }
     
-    //MARK: take Photo using Camera...
+    //MARK: using camera
     func pickUsingCamera(){
         let cameraController = UIImagePickerController()
         cameraController.sourceType = .camera
@@ -49,14 +46,13 @@ class RegisterScreenController: UIViewController, UIImagePickerControllerDelegat
         present(cameraController, animated: true)
     }
     
-    //MARK: pick Photo using Gallery...
+    //MARK: using gallery...
     func pickPhotoFromGallery(){
         var configuration = PHPickerConfiguration()
         configuration.filter = PHPickerFilter.any(of: [.images])
         configuration.selectionLimit = 1
-        
+    
         let photoPicker = PHPickerViewController(configuration: configuration)
-        
         photoPicker.delegate = self
         present(photoPicker, animated: true, completion: nil)
     }
@@ -129,7 +125,7 @@ class RegisterScreenController: UIViewController, UIImagePickerControllerDelegat
 
 }
 
-//MARK: adopting required protocols for PHPicker...
+//MARK: adopting required protocols for PHPicker
 extension RegisterScreenController:PHPickerViewControllerDelegate{
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         dismiss(animated: true)
@@ -152,6 +148,23 @@ extension RegisterScreenController:PHPickerViewControllerDelegate{
                     }
                 })
             }
+        }
+    }
+}
+
+
+extension RegisterScreenController: UINavigationControllerDelegate, UIImagePickerControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+        
+        if let image = info[.editedImage] as? UIImage{
+            self.registerView.buttonTakePhoto.setImage(
+                image.withRenderingMode(.alwaysOriginal),
+                for: .normal
+            )
+            self.pickedImage = image
+        }else{
+        
         }
     }
 }
