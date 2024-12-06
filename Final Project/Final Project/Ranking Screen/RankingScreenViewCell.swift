@@ -26,7 +26,7 @@ class RankingScreenViewCell: UITableViewCell {
     //photo
     func configure(with ranking: RankingModel) {
         labelName.text = ranking.name
-        labelScore.text = "\(ranking.score)"
+        labelScore.text = "\(ranking.score) points"
         
         // Load profile photo if available
         if let photoURLString = ranking.profilePicURL,
