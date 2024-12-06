@@ -31,13 +31,9 @@ class ChatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
         setupTableView()
         listenToMessages()
-        
-        //self.title = "Back"
-        self.title = "Chat room"
         
         NotificationCenter.default.addObserver(
             self,

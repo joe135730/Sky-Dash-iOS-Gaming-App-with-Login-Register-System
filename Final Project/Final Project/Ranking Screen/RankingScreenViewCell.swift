@@ -23,10 +23,10 @@ class RankingScreenViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // Configure cell with data from RankingModel
+    //photo
     func configure(with ranking: RankingModel) {
         labelName.text = ranking.name
-        labelScore.text = "\(ranking.score) points" // Append "points" to score
+        labelScore.text = "\(ranking.score)"
         
         // Load profile photo if available
         if let photoURLString = ranking.profilePicURL,
@@ -49,12 +49,9 @@ class RankingScreenViewCell: UITableViewCell {
         wrapperCellView = UIView()
         wrapperCellView.backgroundColor = UIColor.rgb(0, 0, 28)
         wrapperCellView.layer.cornerRadius = 6.0
-        wrapperCellView.layer.borderWidth = 1.0
-        wrapperCellView.layer.borderColor = UIColor.systemYellow.cgColor
         wrapperCellView.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(wrapperCellView)
     }
-
     
     func setupProfilePic() {
         profilePic = UIImageView()
@@ -110,8 +107,7 @@ class RankingScreenViewCell: UITableViewCell {
             labelName.centerYAnchor.constraint(equalTo: wrapperCellView.centerYAnchor),
             
             labelScore.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor, constant: -16),
-            labelScore.centerYAnchor.constraint(equalTo: wrapperCellView.centerYAnchor),
-            labelScore.widthAnchor.constraint(greaterThanOrEqualToConstant: 80)
+            labelScore.centerYAnchor.constraint(equalTo: wrapperCellView.centerYAnchor)
         ])
     }
 }
