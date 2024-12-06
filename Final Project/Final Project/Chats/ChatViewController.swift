@@ -34,6 +34,8 @@ class ChatViewController: UIViewController {
         setupUI()
         setupTableView()
         listenToMessages()
+        //MARK: back
+        self.title = "Back"
         
         NotificationCenter.default.addObserver(
             self,

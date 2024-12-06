@@ -90,6 +90,7 @@ extension RegisterScreenController {
                         "email": friend.email,
                         "lastMessage": "",
                         "lastMessageTime": Date(),
+                        "score": 0
                         //"score": friend.score,
                         //"photoURL": friend.photoURL ?? ""
                     ]

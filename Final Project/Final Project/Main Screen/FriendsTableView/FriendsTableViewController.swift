@@ -111,7 +111,7 @@ class FriendsTableViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-     /*
+    /*
     private func loadAllUsers() {
         guard let currentUserEmail = Auth.auth().currentUser?.email?.lowercased() else {
             print("No current user email found")

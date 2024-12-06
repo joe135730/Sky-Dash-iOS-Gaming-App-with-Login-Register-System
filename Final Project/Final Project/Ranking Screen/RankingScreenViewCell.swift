@@ -42,7 +42,7 @@ class RankingScreenViewCell: UITableViewCell {
         let name: String
         let email: String
         let photoURL: String?
-        let score: Int
+        let score: Int?
     }
     
     func setupWrapperCellView() {
