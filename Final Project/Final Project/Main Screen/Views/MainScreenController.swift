@@ -21,11 +21,9 @@ class MainScreenController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         title = "Chat room"
         navigationController?.navigationBar.prefersLargeTitles = true
-        // Setup TableView
         mainScreenView.tableViewContacts.dataSource = self
         mainScreenView.tableViewContacts.delegate = self
                 
-        // Setup floating button
         mainScreenView.floatingButtonAddChat.addTarget(self, action: #selector(floatingButtonTapped), for: .touchUpInside)
         view.bringSubviewToFront(mainScreenView.floatingButtonAddChat)
         view.bringSubviewToFront(mainScreenView.floatingButtonAddChat)
@@ -34,7 +32,6 @@ class MainScreenController: UIViewController, UITableViewDataSource, UITableView
     
     //MARK: save friend to Firestore - collection: users, document: userEmail
     func saveFriendToFirestore(friend: Contact) {
-      //let userEmail = "current_user_email" // Replace with actual current user email
       guard let userEmail = Auth.auth().currentUser?.email?.lowercased() else { return }
       let collectionContacts = db.collection("users").document(userEmail).collection("contacts")
       
@@ -52,7 +49,6 @@ class MainScreenController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func loadFriendsFirestore() {
-        //let userEmail = "current_user_email"
         guard let userEmail = Auth.auth().currentUser?.email?.lowercased() else { return }
         let collectionContacts = db.collection("users").document(userEmail).collection("contacts")
         collectionContacts.whereField("email", isEqualTo: userEmail).getDocuments { (snapshot, error) in
@@ -92,8 +88,6 @@ class MainScreenController: UIViewController, UITableViewDataSource, UITableView
     
     private func loadContacts() {
         guard let currentUserEmail = Auth.auth().currentUser?.email?.lowercased() else { return }
-
-        // Listen to the current user's contact list
         db.collection("users")
             .document(currentUserEmail)
             .collection("contacts")
@@ -106,7 +100,6 @@ class MainScreenController: UIViewController, UITableViewDataSource, UITableView
                 self?.contactsList = snapshot?.documents.compactMap { document -> Contact? in
                     do {
                         let contact = try document.data(as: Contact.self)
-                        // Only return contacts with the last message
                         if contact.lastMessage != nil && contact.lastMessageTime != nil {
                             return contact
                         }
@@ -117,7 +110,6 @@ class MainScreenController: UIViewController, UITableViewDataSource, UITableView
                     }
                 } ?? []
                 
-                // Sort by last message
                 self?.contactsList.sort { (contact1, contact2) -> Bool in
                     guard let time1 = contact1.lastMessageTime,
                             let time2 = contact2.lastMessageTime else {

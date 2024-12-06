@@ -7,10 +7,8 @@ import FirebaseStorage
 class RegisterScreenController: UIViewController {
     let registerView = RegisterScreenView()
     let childProgressView = ProgressSpinnerViewController()
-    
-    //MARK: store the picked Image...
+    // store the picked Image
     var pickedImage:UIImage?
-    //MARK: storage
     let storage = Storage.storage()
     
     override func loadView() {
@@ -20,8 +18,7 @@ class RegisterScreenController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerView.signUpButton.addTarget(self, action: #selector(onSignUpBarButtonTapped), for: .touchUpInside)
-        
-        //MARK: adding menu to buttonTakePhoto...
+
         registerView.buttonTakePhoto.menu = getMenuImagePicker()
     }
     
@@ -37,7 +34,6 @@ class RegisterScreenController: UIViewController {
         return UIMenu(title: "Select source", children: menuItems)
     }
     
-    //MARK: using camera
     func pickUsingCamera(){
         let cameraController = UIImagePickerController()
         cameraController.sourceType = .camera
@@ -46,7 +42,6 @@ class RegisterScreenController: UIViewController {
         present(cameraController, animated: true)
     }
     
-    //MARK: using gallery...
     func pickPhotoFromGallery(){
         var configuration = PHPickerConfiguration()
         configuration.filter = PHPickerFilter.any(of: [.images])
@@ -71,17 +66,13 @@ class RegisterScreenController: UIViewController {
             } else if !isValidEmail(email) {
                 self.showInvalidEmailAlert()
             } else {
-                //MARK: Register new account through Firebase
                 self.registerNewAccount()
-
                 self.showSignUpSuccessInAlert()
-                
-                // Navigate to the HomePageController
+
                let homePageController = HomePageViewController()
                homePageController.selectedProfileImage = self.registerView.buttonTakePhoto.imageView?.image // Pass current profile image
                navigationController?.pushViewController(homePageController, animated: true)
                 
-                //MARK: creating a new user on Firebase with photo...
                 showActivityIndicator()
                 uploadProfilePhotoToStorage()
 
@@ -99,7 +90,6 @@ class RegisterScreenController: UIViewController {
             self.present(alert, animated: true)
     }
     
-    //MARK: Validations
     func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         return NSPredicate(format: "SELF MATCHES %@", emailRegEx).evaluate(with: email)
@@ -125,7 +115,6 @@ class RegisterScreenController: UIViewController {
 
 }
 
-//MARK: adopting required protocols for PHPicker
 extension RegisterScreenController:PHPickerViewControllerDelegate{
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         dismiss(animated: true)

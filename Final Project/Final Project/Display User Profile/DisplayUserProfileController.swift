@@ -15,7 +15,6 @@ class DisplayUserProfileController: UIViewController {
         super.viewDidLoad()
         fetchUserProfile()
         
-        // Set up any button targets here if needed
         displayUserProfileView.editProfileButton.addTarget(self, action: #selector(onEditProfileTapped), for: .touchUpInside)
     }
     
@@ -29,8 +28,6 @@ class DisplayUserProfileController: UIViewController {
             print("No user is logged in.")
             return
         }
-        
-        // Set the email field to the current user's email
         displayUserProfileView.emailTextField.text = currentUser.email
         
         // Always show the password as "******"

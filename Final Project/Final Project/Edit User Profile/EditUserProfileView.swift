@@ -41,7 +41,7 @@ class EditUserProfileView: UIView {
     func setupPasswordTextField() {
         passwordTextField = UITextField()
         passwordTextField.placeholder = "New Password"
-        passwordTextField.isSecureTextEntry = true  // Add secure text entry
+        passwordTextField.isSecureTextEntry = true
         passwordTextField.borderStyle = .roundedRect
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(passwordTextField)
@@ -51,8 +51,8 @@ class EditUserProfileView: UIView {
         confirmButton = UIButton(type: .system)
         confirmButton.setTitle("Confirm", for: .normal)
         confirmButton.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        confirmButton.setTitleColor(.black, for: .normal) // Change text color to black
-        confirmButton.backgroundColor = .systemYellow  // Change button background to system yellow
+        confirmButton.setTitleColor(.black, for: .normal)
+        confirmButton.backgroundColor = .systemYellow
         confirmButton.layer.cornerRadius = 5
         confirmButton.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(confirmButton)

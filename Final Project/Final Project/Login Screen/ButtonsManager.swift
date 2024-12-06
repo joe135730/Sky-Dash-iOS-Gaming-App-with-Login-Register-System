@@ -42,7 +42,6 @@ extension ViewController{
             }
             
             if error == nil {
-                // Navigate to HomePage instead of MainScreen
                 let homePageViewController = HomePageViewController()
                 self.navigationController?.pushViewController(homePageViewController, animated: true)
             } else {

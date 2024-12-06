@@ -14,7 +14,6 @@ class EditUserProfileController: UIViewController {
         super.viewDidLoad()
         fetchUserEmail()
         
-        // Set up button target
         editUserProfileView.confirmButton.addTarget(self, action: #selector(onConfirmTapped), for: .touchUpInside)
     }
     
@@ -23,7 +22,6 @@ class EditUserProfileController: UIViewController {
             print("No user is logged in.")
             return
         }
-        // Display current user's email
         editUserProfileView.emailTextField.text = "\(currentUser.email ?? "")"
     }
     

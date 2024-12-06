@@ -87,7 +87,6 @@ class MessageTableViewCell: UITableViewCell {
             leadingConstraint?.isActive = true
         }
         
-        // Update layout
         layoutIfNeeded()
     }
 }

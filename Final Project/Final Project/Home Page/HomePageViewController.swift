@@ -12,39 +12,33 @@ class HomePageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Hide the back button
         navigationItem.hidesBackButton = true
         
         //MARK: here
         if let profileImage = selectedProfileImage {
             homePageView.profileButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
         }
-   
-        // Setup button targets
+
         setupActions()
-        
-        //Setup Start button
+
         homePageView.startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
     
     func setupActions() {
-        // Add targets for all buttons
+
         homePageView.exitButton.addTarget(self, action: #selector(exitButtonTapped), for: .touchUpInside)
         homePageView.startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         homePageView.friendsButton.addTarget(self, action: #selector(friendsButtonTapped), for: .touchUpInside)
         homePageView.profileButton.addTarget(self, action: #selector(profileButtonTapped), for: .touchUpInside)
         homePageView.rankingButton.addTarget(self, action: #selector(rankingButtonTapped), for: .touchUpInside)
-        // homePageView.merchandiseButton.addTarget(self, action: #selector(merchandiseButtonTapped), for: .touchUpInside)
     }
     
     @objc func exitButtonTapped() {
         // Handle logout
         do {
             try Auth.auth().signOut()
-            // Clear UserDefaults
+
             UserDefaults.standard.removeObject(forKey: "sessionToken")
-            // Navigate back to login screen
             navigationController?.popToRootViewController(animated: true)
         } catch {
             print("Error signing out: \(error.localizedDescription)")
@@ -60,7 +54,6 @@ class HomePageViewController: UIViewController {
         print("Start button tapped")
         let gameScreenController = GameScreenController()
         
-        // Push to game screen
         navigationController?.pushViewController(gameScreenController, animated: true)
     }
         
@@ -71,13 +64,9 @@ class HomePageViewController: UIViewController {
     }
     
     @objc func rankingButtonTapped() {
-        // Navigate to ranking screen
         let rankingScreenController = RankingScreenController()
         navigationController?.pushViewController(rankingScreenController, animated: true)
     }
     
-    // @objc func merchandiseButtonTapped() {
-    //     // Navigate to merchandise screen
-    //     print("Merchandise button tapped")
-    // }
+
 }

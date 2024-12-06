@@ -1,7 +1,6 @@
 import UIKit
 
 class RegisterScreenView: UIView {
-    //MARK: Scroll view
     var contentWrapper: UIScrollView!
 
     var textFieldName:UITextField!
@@ -10,7 +9,6 @@ class RegisterScreenView: UIView {
     var textFieldConfirmPassword:UITextField!
     
     var signUpButton: UIButton!
-    //MARK: profile photo
     var buttonTakePhoto: UIButton!
     
     override init(frame: CGRect) {

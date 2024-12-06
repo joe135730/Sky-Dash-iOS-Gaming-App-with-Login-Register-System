@@ -30,56 +30,12 @@ class RankingScreenController: UIViewController, UITableViewDataSource, UITableV
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
-/*
-    func saveRankingToFirestore(rankingData: RankingModel) {
-        guard let userEmail = Auth.auth().currentUser?.email else {
-            print("Error: User not logged in.")
-            return
-        }
-        
-        let rankingCollection = db.collection("rankings")
-        
-        rankingCollection
-            .whereField("userEmail", isEqualTo: userEmail)
-            .order(by: "score", descending: true)
-            .limit(to: 1)
-            .getDocuments { [weak self] (snapshot, error) in
-                if let error = error {
-                    print("Error checking existing score: \(error.localizedDescription)")
-                    return
-                }
-                
-                let currentHighScore = snapshot?.documents.first?.data()["score"] as? Int ?? 0
-                
-                if rankingData.score > currentHighScore || snapshot?.documents.isEmpty == true {
-                    let newRankingDoc = rankingCollection.document()
-                    
-                    let data: [String: Any] = [
-                        "userEmail": userEmail,  // Important to include this
-                        "name": rankingData.name,
-                        "score": rankingData.score,
-                        "profilePic": "",
-                        "timestamp": FieldValue.serverTimestamp()
-                    ]
-                    
-                    newRankingDoc.setData(data) { error in
-                        if let error = error {
-                            print("Error saving ranking: \(error.localizedDescription)")
-                        } else {
-                            print("Ranking saved successfully! Score: \(rankingData.score)")
-                        }
-                    }
-                }
-        }
-    }
-    */
     func saveRankingToFirestore(rankingData: RankingModel) {
         guard let userEmail = Auth.auth().currentUser?.email,
         let photoURL = Auth.auth().currentUser?.photoURL?.absoluteString else{
             print("Error: photo URL not show in firestore.")
             return
         }
-        
         let rankingCollection = db.collection("users")
             .document(userEmail)
             .collection("rankings")
@@ -143,13 +99,6 @@ class RankingScreenController: UIViewController, UITableViewDataSource, UITableV
                         .sorted { $0.score > $1.score }
                         .enumerated()
                         .map { (index, userData) -> RankingModel in
-                            /*
-                            var profileImage = UIImage(systemName: "person.circle") ?? UIImage()
-                            if let url = URL(string: userData.imageUrl),
-                               let data = try? Data(contentsOf: url) {
-                                profileImage = UIImage(data: data) ?? profileImage
-                            }
-                            */
                             return RankingModel(
                                 profilePicURL: userData.imageUrl,
                                 name: userData.name,
@@ -204,11 +153,6 @@ class RankingScreenController: UIViewController, UITableViewDataSource, UITableV
                         guard let name = data["name"] as? String,
                               let score = data["score"] as? Int,
                               let imageUrl = data["profilePic"] as? String else { return nil }
-                        /*
-                        var profileImage = UIImage(systemName: "person.circle") ?? UIImage()
-                        if let url = URL(string: imageUrl),let data = try? Data(contentsOf: url) {
-                            profileImage = UIImage(data: data) ?? profileImage
-                        }*/
                         return RankingModel(
                             profilePicURL: imageUrl,
                             name: name,
@@ -245,12 +189,6 @@ class RankingScreenController: UIViewController, UITableViewDataSource, UITableV
         let ranking = rankingData[indexPath.row]
         cell.configure(with: ranking)
         cell.labelRanking.text = ranking.ranking
-        /*
-        cell.labelName.text = ranking.name
-        cell.labelRanking.text = ranking.ranking
-        cell.labelScore.text = "\(ranking.score)"
-        cell.profilePic.image = ranking.profilePic
-        */
         print("Displaying cell for: \(ranking.name), \(ranking.ranking), \(ranking.score), photoURL: \(ranking.profilePicURL ?? "no photo")")
         return cell
     }

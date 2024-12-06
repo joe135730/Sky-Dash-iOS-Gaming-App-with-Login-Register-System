@@ -28,12 +28,10 @@ class RankingScreenViewCell: UITableViewCell {
         labelName.text = ranking.name
         labelScore.text = "\(ranking.score)"
         
-        // Load profile photo if available
         if let photoURLString = ranking.profilePicURL,
            let photoURL = URL(string: photoURLString) {
             profilePic.loadRemoteImage(from: photoURL)
         } else {
-            // Set default image if no photo URL
             profilePic.image = UIImage(systemName: "person.circle")?.withRenderingMode(.alwaysOriginal)
         }
     }

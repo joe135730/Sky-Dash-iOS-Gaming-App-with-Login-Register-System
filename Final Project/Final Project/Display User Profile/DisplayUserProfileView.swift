@@ -64,23 +64,19 @@ class DisplayUserProfileView: UIView {
     
     func initConstraints() {
         NSLayoutConstraint.activate([
-            // Title Label constraints
             titleLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
             titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
-            // Username TextField constraints
             emailTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
             emailTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 85),
             emailTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -85),
             emailTextField.heightAnchor.constraint(equalToConstant: 40),
             
-            // Password TextField constraints
             passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
             passwordTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 85),
             passwordTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -85),
             passwordTextField.heightAnchor.constraint(equalToConstant: 40),
             
-            // Edit Profile Button constraints
             editProfileButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30),
             editProfileButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             editProfileButton.widthAnchor.constraint(equalToConstant: 150),

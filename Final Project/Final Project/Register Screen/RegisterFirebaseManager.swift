@@ -74,7 +74,6 @@ extension RegisterScreenController {
         guard let currentUser = Auth.auth().currentUser else { return }
         let db = Firestore.firestore()
         
-        // Save user information to the users collection
         let userRef = db.collection("users").document(friend.email)
         
         do {
@@ -91,16 +90,12 @@ extension RegisterScreenController {
                         "lastMessage": "",
                         "lastMessageTime": Date(),
                         "score": 0
-                        //"score": friend.score,
-                        //"photoURL": friend.photoURL ?? ""
                     ]
                     
-                    // Create a contact collection for new users
                     let contactsRef = db.collection("users")
                         .document(friend.email)
                         .collection("contacts")
                     
-                    // Add an empty contact document
                     contactsRef.document().setData(initialContactData) { error in
                         if let error = error {
                             print("Error creating initial contacts: \(error.localizedDescription)")

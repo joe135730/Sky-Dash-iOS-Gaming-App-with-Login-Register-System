@@ -27,10 +27,7 @@ class FriendsTableViewCell: UITableViewCell {
     }
     
     private func setupUI() {
-        // Set background color
         contentView.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 28/255, alpha: 1.0)
-        
-        // Add these lines for border
         contentView.layer.borderWidth = 1.0
         contentView.layer.borderColor = UIColor.white.cgColor
         contentView.layer.cornerRadius = 8.0

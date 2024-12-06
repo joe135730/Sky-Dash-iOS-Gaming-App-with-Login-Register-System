@@ -40,7 +40,7 @@ class GameScreenController: UIViewController {
     
     private func startGame() {
         score = 0
-        gameScreenView.resetGame()  // Reset game state
+        gameScreenView.resetGame()
         
         // Start game loop
         gameTimer = Timer.scheduledTimer(withTimeInterval: 1/60, repeats: true) { [weak self] _ in
@@ -99,7 +99,7 @@ class GameScreenController: UIViewController {
         // Stop all ongoing animations
         gameScreenView.stopAllAnimations()
         
-        //MARK: modify here
+        //MARK: modify here photo and ranking
         let profilePhotoURL = Auth.auth().currentUser?.photoURL?.absoluteString
         let rankingData = RankingModel(
             profilePicURL: profilePhotoURL,
@@ -130,7 +130,6 @@ class GameScreenController: UIViewController {
         alert.addAction(UIAlertAction(title: "Main Menu", style: .cancel) { [weak self] _ in
             guard let self = self else { return }
                     
-            // Navigate to Ranking Screen
             if let rankingScreen = self.navigationController?.viewControllers.first(where: { $0 is RankingScreenController }) as? RankingScreenController {
                 rankingScreen.observeRankings() 
             }
@@ -141,7 +140,7 @@ class GameScreenController: UIViewController {
         present(alert, animated: true)
     }
     
-    //MARK: update player score
+    //MARK: modify here player score
     private func updatePlayerScore(newScore: Int, completion: @escaping ( Bool) -> Void){
         let db = Firestore.firestore()
         guard let userEmail = Auth.auth().currentUser?.email else {
@@ -183,7 +182,6 @@ class GameScreenController: UIViewController {
                     completion(false)
                 }
             } else {
-                // If document doesn't exist, create it
                 rankingRef.setData([
                     "name": userName,
                     "score": newScore,

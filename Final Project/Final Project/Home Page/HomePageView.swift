@@ -28,7 +28,7 @@ class HomePageView: UIView {
     var friendsButton: UIButton!
     var profileButton: UIButton!
     var rankingButton: UIButton!
-    //var merchandiseButton: UIButton!
+
     var exitButton: UIButton!
     var startButton: UIButton!
 
@@ -41,7 +41,7 @@ class HomePageView: UIView {
         setupFriendsButton()
         setupProfileButton()
         setupRankingButton()
-        // setUpMerchandiseButton()
+
         setUpExitButtonButton()
         setupStartButton()
         
@@ -114,7 +114,6 @@ class HomePageView: UIView {
         titleLabel.textColor = .rgb(255, 209, 17)
         titleLabel.textAlignment = .center
         titleLabel.translatesAutoresizingMaskIntoConstraints = false // Allow Auto Layout to control the label
-//        self.addSubview(titleLabel)
     }
     
     func setupLogoImageView(){
@@ -124,7 +123,6 @@ class HomePageView: UIView {
         logoImageView.clipsToBounds = true
         logoImageView.layer.cornerRadius = 10
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
-//        self.addSubview(logoImageView)
     }
     
     func setupFriendsButton() {
@@ -134,7 +132,6 @@ class HomePageView: UIView {
         friendsButton.contentVerticalAlignment = .fill
         friendsButton.imageView?.contentMode = .scaleAspectFit
         friendsButton.translatesAutoresizingMaskIntoConstraints = false
-//        self.addSubview(friendsButton)
     }
     
     func setupProfileButton() {
@@ -146,7 +143,6 @@ class HomePageView: UIView {
         profileButton.layer.cornerRadius = 25 // Circular button
         profileButton.layer.masksToBounds = true
         profileButton.translatesAutoresizingMaskIntoConstraints = false
-//        self.addSubview(profileButton)
     }
     
     func setupRankingButton() {
@@ -154,16 +150,11 @@ class HomePageView: UIView {
         rankingButton.setTitle("Ranking", for: .normal)
         rankingButton.setTitleColor(.black, for: .normal)
         rankingButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        
-        // Center the text within the button's borders
         rankingButton.contentHorizontalAlignment = .center
         rankingButton.contentVerticalAlignment = .center
-
         rankingButton.imageView?.contentMode = .scaleAspectFit
-        // Background color
         rankingButton.backgroundColor = .rgb(255, 209, 17)
 
-        // Border settings
         rankingButton.layer.borderColor = UIColor.darkGray.cgColor
         rankingButton.layer.borderWidth = 2.0
         rankingButton.layer.cornerRadius = 10.0 // Rounded corners
@@ -171,54 +162,23 @@ class HomePageView: UIView {
         // Add menu to show in view
         rankingButton.showsMenuAsPrimaryAction = true
         rankingButton.translatesAutoresizingMaskIntoConstraints = false
-//        self.addSubview(rankingButton)
     }
     
-//     func setUpMerchandiseButton() {
-//         merchandiseButton = UIButton(type: .system)
-//         merchandiseButton.setTitle("Merchandise", for: .normal)
-//         merchandiseButton.setTitleColor(.black, for: .normal)
-//         merchandiseButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        
-//         // Center the text within the button's borders
-//         merchandiseButton.contentHorizontalAlignment = .center
-//         merchandiseButton.contentVerticalAlignment = .center
-
-//         merchandiseButton.imageView?.contentMode = .scaleAspectFit
-//         // Background color
-//         merchandiseButton.backgroundColor = .rgb(255, 209, 17)
-
-//         // Border settings
-//         merchandiseButton.layer.borderColor = UIColor.darkGray.cgColor
-//         merchandiseButton.layer.borderWidth = 2.0
-//         merchandiseButton.layer.cornerRadius = 10.0 // Rounded corners
-        
-//         // Add menu to show in view
-//         merchandiseButton.showsMenuAsPrimaryAction = true
-//         merchandiseButton.translatesAutoresizingMaskIntoConstraints = false
-// //        self.addSubview(merchandiseButton)
-//     }
     
     func setUpExitButtonButton() {
         exitButton = UIButton(type: .system)
         exitButton.setTitle("Exit", for: .normal)
         exitButton.setTitleColor(.black, for: .normal)
         exitButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        
-        // Center the text within the button's borders
         exitButton.contentHorizontalAlignment = .center
         exitButton.contentVerticalAlignment = .center
 
         exitButton.imageView?.contentMode = .scaleAspectFit
-        // Background color
         exitButton.backgroundColor = .rgb(255, 209, 17)
-
-        // Border settings
         exitButton.layer.borderColor = UIColor.darkGray.cgColor
         exitButton.layer.borderWidth = 2.0
         exitButton.layer.cornerRadius = 10.0 // Rounded corners
         
-        // Add menu to show in view
         exitButton.showsMenuAsPrimaryAction = true
         exitButton.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -228,21 +188,16 @@ class HomePageView: UIView {
         startButton.setTitle("Start", for: .normal)
         startButton.setTitleColor(.black, for: .normal)
         startButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        
-        // Center the text within the button's borders
         startButton.contentHorizontalAlignment = .center
         startButton.contentVerticalAlignment = .center
 
         startButton.imageView?.contentMode = .scaleAspectFit
-        // Background color
         startButton.backgroundColor = .rgb(255, 209, 17)
-
-        // Border settings
         startButton.layer.borderColor = UIColor.darkGray.cgColor
         startButton.layer.borderWidth = 2.0
         startButton.layer.cornerRadius = 10.0 // Rounded corners
         
-        // Add menu to show in view
+
         startButton.showsMenuAsPrimaryAction = true
         startButton.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -250,13 +205,11 @@ class HomePageView: UIView {
     //MARK: initializing the constraints...
     func initConstraints(){
         NSLayoutConstraint.activate([
-            // Main stack view constraints
             mainStackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             mainStackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             mainStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
             mainStackView.bottomAnchor.constraint(lessThanOrEqualTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             
-            // Additional constraints for subviews if necessary
             logoImageView.widthAnchor.constraint(equalToConstant: 50),
             logoImageView.heightAnchor.constraint(equalToConstant: 50),
             
@@ -268,9 +221,6 @@ class HomePageView: UIView {
             
             rankingButton.widthAnchor.constraint(equalToConstant: 200),
             rankingButton.heightAnchor.constraint(equalToConstant: 50),
-
-//            merchandiseButton.widthAnchor.constraint(equalToConstant: 200),
-//            merchandiseButton.heightAnchor.constraint(equalToConstant: 50),
 
             exitButton.widthAnchor.constraint(equalToConstant: 200),
             exitButton.heightAnchor.constraint(equalToConstant: 50),

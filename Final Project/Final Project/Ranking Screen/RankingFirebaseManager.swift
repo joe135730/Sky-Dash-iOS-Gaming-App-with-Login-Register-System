@@ -80,7 +80,6 @@ extension RankingScreenController{
                         score: score
                     )
                 }
-                // Assign rankings
                 for (index, ranking) in rankings.enumerated() {
                     rankings[index].ranking = "#\(index + 1)"
                 }
