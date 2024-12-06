@@ -12,6 +12,7 @@ class EditUserProfileController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Edit Profile"
         fetchUserEmail()
         
         // Set up button target
@@ -49,9 +50,11 @@ class EditUserProfileController: UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
             if title == "Success" {
+                // Pop back to HomePageViewController
                 self.navigationController?.popViewController(animated: true)
             }
         })
         present(alert, animated: true)
     }
+
 }
