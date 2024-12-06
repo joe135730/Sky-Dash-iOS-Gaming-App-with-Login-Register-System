@@ -25,8 +25,7 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-        
-        //MARK: handling if the Authentication state is changed (sign in, sign out, register)...
+
         handleAuth = Auth.auth().addStateDidChangeListener{ auth, user in
             if user == nil{
             } else {

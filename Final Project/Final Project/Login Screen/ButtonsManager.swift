@@ -13,8 +13,6 @@ extension ViewController{
         
         if let email = loginView.textFieldEmail.text,
            let password = loginView.textFieldPassword.text {
-            
-            // MARK: Validation check
             if email.isEmpty || password.isEmpty {
                 self.hideActivityIndicator()
                 showEmptyAlert()
@@ -22,7 +20,6 @@ extension ViewController{
                 self.hideActivityIndicator()
                 showInvalidEmailAlert()
             } else {
-                //MARK: Perform login action
                 performLogin(email: email, password: password)
             }
         } else {
@@ -45,7 +42,6 @@ extension ViewController{
                 let homePageViewController = HomePageViewController()
                 self.navigationController?.pushViewController(homePageViewController, animated: true)
             } else {
-                //MARK: Alert no user or incorrect password or other error
                 let alert = UIAlertController(
                     title: "Error!",
                     message: "Incorrect Password or User not found!",

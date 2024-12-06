@@ -6,12 +6,9 @@ import FirebaseFirestore
 extension RegisterScreenController {
     func registerNewAccount() {
         self.showActivityIndicator()
-        
         if let name = registerView.textFieldName.text,
            let email = registerView.textFieldEmail.text,
            let password = registerView.textFieldPassword.text {
-            
-            // Upload profile photo and register user
             uploadProfilePhotoToStorage()
         }
     }

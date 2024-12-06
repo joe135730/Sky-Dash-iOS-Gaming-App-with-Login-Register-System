@@ -49,10 +49,7 @@ class ChatViewController: UIViewController {
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
-        
         chatView.sendButton.addTarget(self, action: #selector(sendMessage), for: .touchUpInside)
-        
-      
     }
     
     private func setupUI() {
@@ -184,26 +181,19 @@ class ChatViewController: UIViewController {
 
     private func updateLastMessage(_ message: Message) {
         guard let currentUserEmail = Auth.auth().currentUser?.email?.lowercased() else { return }
-        // Get curr user name
         let currentUserName = Auth.auth().currentUser?.displayName ?? "Unknown"
         let batch = db.batch()
-    
-        
-        // Update the sender's contact list
+
         let senderContactRef = db.collection("users")
             .document(currentUserEmail)
             .collection("contacts")
             .document(self.contact.email.lowercased())
-        
-        // Update the recipient's contact list
+
         let receiverContactRef = db.collection("users")
             .document(self.contact.email.lowercased())
             .collection("contacts")
             .document(currentUserEmail)
-        
 
-
-        // Update the sender's contact data
         let senderData: [String: Any] = [
             "name": self.contact.name,
             "email": self.contact.email.lowercased(),
@@ -211,8 +201,7 @@ class ChatViewController: UIViewController {
             "lastMessageTime": message.timestamp,
             "hasUnreadMessages": false
         ]
-        
-        // Update the recipient's contact data
+
         let receiverData: [String: Any] = [
             "name": Auth.auth().currentUser?.displayName ?? "Unknown",
             "email": currentUserEmail,
@@ -286,10 +275,6 @@ class ChatViewController: UIViewController {
         }
     }
     
-
-
-
-    // Add in ChatViewController
     private func showLoadingIndicator() {
         let activityIndicator = UIActivityIndicatorView(style: .medium)
         activityIndicator.startAnimating()
@@ -314,9 +299,7 @@ class ChatViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "confirm", style: .default))
         present(alert, animated: true)
     }
-        
 
-    
     func scrollToBottom() {
         guard !messages.isEmpty else { return }
         let lastIndex = messages.count - 1

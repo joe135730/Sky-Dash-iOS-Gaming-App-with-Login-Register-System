@@ -28,16 +28,14 @@ class GameScreenView: UIView {
     
     private func setupGame() {
         self.backgroundColor = .black
-        
-        // Setup score label first
+
         scoreLabel = UILabel()
         scoreLabel.textColor = .white
         scoreLabel.font = .systemFont(ofSize: 24, weight: .bold)
         scoreLabel.text = "Score: 0"
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(scoreLabel)
-        
-        // Setup rocket in the middle
+
         let rocketSize: CGFloat = 60
         let safeTopMargin: CGFloat = 60 // Space for score label
         rocket = UIImageView(frame: CGRect(

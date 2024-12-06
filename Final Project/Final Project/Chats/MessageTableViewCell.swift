@@ -69,7 +69,6 @@ class MessageTableViewCell: UITableViewCell {
         dateFormatter.dateFormat = "HH:mm"
         timeLabel.text = dateFormatter.string(from: message.timestamp)
         
-        // Disable all constraints
         leadingConstraint?.isActive = false
         trailingConstraint?.isActive = false
         

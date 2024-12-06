@@ -1,10 +1,3 @@
-//
-//  HomePageView.swift
-//  WA8_40
-//
-//  Created by jocw on 11/27/24.
-//
-
 import UIKit
 
 class HomePageView: UIView {

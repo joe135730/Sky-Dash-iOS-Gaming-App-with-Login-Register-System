@@ -41,8 +41,7 @@ class GameScreenController: UIViewController {
     private func startGame() {
         score = 0
         gameScreenView.resetGame()
-        
-        // Start game loop
+
         gameTimer = Timer.scheduledTimer(withTimeInterval: 1/60, repeats: true) { [weak self] _ in
             self?.updateGame()
         }
@@ -51,8 +50,6 @@ class GameScreenController: UIViewController {
         obstacleTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
             self?.gameScreenView.addObstacle()
         }
-        
-        // Start automatic shooting
         shootingTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             self?.gameScreenView.shootBullet()
         }
@@ -76,7 +73,6 @@ class GameScreenController: UIViewController {
                 return
             }
             
-            // Only handle monster hits if game is still running
             for monster in hitMonsters {
                 // Check if it's a blueMushroom by size
                 if monster.frame.width > 60 { // blueMushroom is 1.5x size
@@ -96,10 +92,9 @@ class GameScreenController: UIViewController {
         obstacleTimer?.invalidate()
         shootingTimer?.invalidate()
         
-        // Stop all ongoing animations
         gameScreenView.stopAllAnimations()
         
-        //MARK: modify here photo and ranking
+        //modify here photo and ranking
         let profilePhotoURL = Auth.auth().currentUser?.photoURL?.absoluteString
         let rankingData = RankingModel(
             profilePicURL: profilePhotoURL,
@@ -107,8 +102,6 @@ class GameScreenController: UIViewController {
             ranking: "",
             score: score
         )
-        
-        // save the score
         if let rankingScreen = navigationController?.viewControllers.first(where: { $0 is RankingScreenController }) as? RankingScreenController {
             rankingScreen.saveRankingToFirestore(rankingData: rankingData)
         }
@@ -140,7 +133,7 @@ class GameScreenController: UIViewController {
         present(alert, animated: true)
     }
     
-    //MARK: modify here player score
+    //modify here player score
     private func updatePlayerScore(newScore: Int, completion: @escaping ( Bool) -> Void){
         let db = Firestore.firestore()
         guard let userEmail = Auth.auth().currentUser?.email else {
